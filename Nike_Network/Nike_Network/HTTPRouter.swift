@@ -18,8 +18,11 @@ protocol HTTPRouter: URLRequestConvertible {
 }
 
 extension HTTPRouter {
-    var baseURL: URL? {
-        return {
+    func baseURL() throws -> URL? {
+            let condition = stringComponents.allSatisfy { !$0.isEmpty }
+        
+            guard condition else { throw NetworkingError.malformedURL }
+
             var components = URLComponents()
             components.host = host
             components.scheme = scheme
@@ -27,7 +30,10 @@ extension HTTPRouter {
             components.queryItems = parameters.map { .init(name: $0.key, value: "\($0.value)") }
     
             return components.url
-        }()
+    }
+    
+    private var stringComponents: [String] {
+        [host, scheme, path]
     }
 }
 
@@ -36,7 +42,27 @@ protocol URLRequestConvertible {
 }
 
 
-enum NetworkingErrors: Error, LocalizedError {
+enum NetworkingError: Error, LocalizedError, Equatable {
+    static func == (lhs: NetworkingError, rhs: NetworkingError) -> Bool {
+        switch (lhs, rhs) {
+        case (.malformedURL, .malformedURL),
+             (.malformedRequest, .malformedRequest),
+             (.noResponse, .noResponse),
+             (.noData, .noData),
+             (.noImage, .noImage):
+            return true
+        case let (.swift(error1), .swift(error2)),
+             let (.jsonDecoding(error1), .jsonDecoding(error2)):
+            return error1.localizedDescription == error2.localizedDescription
+        case let (.badResponse(code1), .badResponse(code2)):
+            return code1 == code2
+        case let (.serverError(string1), .serverError(string2)):
+            return string1 == string2
+        default:
+            return false
+        }
+    }
+    
     case malformedURL
     case malformedRequest
     case swift(Error)
@@ -74,5 +100,63 @@ enum NetworkingErrors: Error, LocalizedError {
         }
         
         return "\(Self.self)" + ": " + description
+    }
+}
+
+
+enum ItunesRouter: HTTPRouter {
+    
+    case topAlbumsAcrossAllGenres(count: Int)
+    
+    private enum Constants {
+        static let get = "GET"
+        static let https = "https"
+    }
+    
+    var method: String {
+        switch self {
+        case .topAlbumsAcrossAllGenres:
+            return Constants.get
+        }
+    }
+    
+    var host: String {
+        switch self {
+        case .topAlbumsAcrossAllGenres:
+            return "rss.itunes.apple.com"
+        }
+    }
+    
+    var scheme: String {
+        switch self {
+        case .topAlbumsAcrossAllGenres:
+            return Constants.https
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .topAlbumsAcrossAllGenres(let count):
+            return "/api/v1/us/apple-music/coming-soon/all/\(count)/explicit.json"
+        }
+    }
+    
+    var parameters: [String : Any] {
+        switch self {
+        case .topAlbumsAcrossAllGenres:
+            return [:]
+        }
+    }
+    
+    var additionalHttpHeaders: [String : Any] {
+        switch self {
+        case .topAlbumsAcrossAllGenres(let count):
+            return [:]
+        }
+
+    }
+    
+    func asURLRequest() throws -> URLRequest {
+        throw NetworkingError.noData
     }
 }
