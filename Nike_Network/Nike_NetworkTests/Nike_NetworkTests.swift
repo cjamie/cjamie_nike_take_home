@@ -11,24 +11,37 @@ import XCTest
 
 class Nike_NetworkTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    
+    func test() {
+        XCTFail()
     }
+    
+    struct MyHttpRouter: HTTPRouter {
+        let method: String
+        
+        let host: String
+        
+        let scheme: String
+        
+        let path: String
+        
+        let parameters: [String : Any]
+        
+        let additionalHttpHeaders: [String : Any]
+        
+        func asURLRequest() throws -> URLRequest {
+            guard let baseURL = baseURL else { throw NetworkingErrors.malformedURL }
+            var request = URLRequest(url: baseURL)
+            request.httpMethod = method
+            additionalHttpHeaders.forEach { header in
+                guard let value = header.value as? String else { return }
+                request.addValue(value, forHTTPHeaderField: header.key)
+            }
+            return request
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
         }
     }
-
 }
+
+

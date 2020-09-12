@@ -10,6 +10,7 @@
 		7D6BF95B250C822300C824D7 /* Nike_Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6BF951250C822300C824D7 /* Nike_Network.framework */; };
 		7D6BF960250C822300C824D7 /* Nike_NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF95F250C822300C824D7 /* Nike_NetworkTests.swift */; };
 		7D6BF962250C822300C824D7 /* Nike_Network.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D6BF954250C822300C824D7 /* Nike_Network.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7D6BF981250C842A00C824D7 /* HTTPRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF980250C842A00C824D7 /* HTTPRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		7D6BF95A250C822300C824D7 /* Nike_NetworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Nike_NetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6BF95F250C822300C824D7 /* Nike_NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nike_NetworkTests.swift; sourceTree = "<group>"; };
 		7D6BF961250C822300C824D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D6BF980250C842A00C824D7 /* HTTPRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				7D6BF954250C822300C824D7 /* Nike_Network.h */,
 				7D6BF955250C822300C824D7 /* Info.plist */,
+				7D6BF980250C842A00C824D7 /* HTTPRouter.swift */,
 			);
 			path = Nike_Network;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				TargetAttributes = {
 					7D6BF950250C822300C824D7 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					7D6BF959250C822300C824D7 = {
 						CreatedOnToolsVersion = 11.5;
@@ -195,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D6BF981250C842A00C824D7 /* HTTPRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +345,7 @@
 		7D6BF966250C822300C824D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = RNF778SHGZ;
@@ -356,6 +362,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.askuriel.Nike-Network";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +371,7 @@
 		7D6BF967250C822300C824D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = RNF778SHGZ;
@@ -388,6 +396,7 @@
 		7D6BF969250C822300C824D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RNF778SHGZ;
 				INFOPLIST_FILE = Nike_NetworkTests/Info.plist;
@@ -406,6 +415,7 @@
 		7D6BF96A250C822300C824D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RNF778SHGZ;
 				INFOPLIST_FILE = Nike_NetworkTests/Info.plist;

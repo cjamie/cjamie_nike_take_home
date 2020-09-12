@@ -204,7 +204,6 @@
 					};
 					7D6BF7E2250C765900C824D7 = {
 						CreatedOnToolsVersion = 11.5;
-						TestTargetID = 7D6BF7CC250C765700C824D7;
 					};
 				};
 			};
@@ -464,7 +463,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RNF778SHGZ;
 				INFOPLIST_FILE = jamie_chu_nikeTests/Info.plist;
@@ -478,7 +476,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jamie_chu_nike.app/jamie_chu_nike";
 			};
 			name = Debug;
 		};
@@ -486,7 +483,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RNF778SHGZ;
 				INFOPLIST_FILE = jamie_chu_nikeTests/Info.plist;
@@ -500,7 +496,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/jamie_chu_nike.app/jamie_chu_nike";
 			};
 			name = Release;
 		};
