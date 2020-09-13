@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct ITunesRouter: HTTPRouter, Equatable {
     
     static let nikeDefault = ITunesRouter(

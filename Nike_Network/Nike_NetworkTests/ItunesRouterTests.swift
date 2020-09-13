@@ -27,8 +27,7 @@ class ItunesRouterTests: XCTestCase {
         XCTAssertEqual(sut, expected)
     }
     
-    func test_itunesRouter_hasExpectedHTTPRouterProperties() {
-        
+    func test_init_hasExpectedHTTPRouterProperties() {
         // GIVEN
             
         let countryOrRegion = anyRandomNonEmptyString()
