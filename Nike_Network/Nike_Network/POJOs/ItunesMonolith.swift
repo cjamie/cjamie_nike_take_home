@@ -46,9 +46,9 @@ struct Link: Codable, Equatable {
 struct AlbumResult: Codable, Equatable {
     let artistName, id, releaseDate, name: String
     let kind: Kind
-    let copyright: String
+    let copyright: String?
     let artistID: String
-    let contentAdvisoryRating: String // TODO: - this should be an enum?
+    let contentAdvisoryRating: String? // TODO: - this should be an enum?
     let artistURL: URL
     let artworkUrl100: URL
     let genres: [Genre]
@@ -66,19 +66,13 @@ struct AlbumResult: Codable, Equatable {
 // MARK: - Genre
 struct Genre: Codable, Equatable {
     let genreID: String
-    let name: Name
+    let name: String
     let url: URL
 
     enum CodingKeys: String, CodingKey {
         case genreID = "genreId"
         case name, url
     }
-}
-
-enum Name: String, Codable {
-    case country = "Country"
-    case hipHopRap = "Hip-Hop/Rap"
-    case music = "Music"
 }
 
 enum Kind: String, Codable, Equatable {

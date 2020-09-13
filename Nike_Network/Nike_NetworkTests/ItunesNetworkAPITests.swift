@@ -36,9 +36,25 @@ class ItunesNetworkAPITests: XCTestCase {
         
     }
     
-    func test_apiReturnsOnMainThread() {
+    func test_ItunesRecordFetcherApiImplementations_returnsOnMainThread() {
+        let (localSut, remoteSut) = (makeSUT(source: .local), makeSUT(source: .remote))
+        
+        let localExpectation = expectation(description: "local" + #function)
+        let remoteExpectation = expectation(description: "remote" + #function)
+
+        localSut.fetchDefaultRaw { _ in
+            localExpectation.fulfill()
+            XCTAssert(Thread.isMainThread)
+        }
+        remoteSut.fetchDefaultRaw { _ in
+            remoteExpectation.fulfill()
+            XCTAssert(Thread.isMainThread)
+        }
+        
+        wait(for: [localExpectation, remoteExpectation], timeout: 5)
         
     }
+    
         
     // MARK: - Helpers
     
@@ -174,12 +190,12 @@ class ItunesNetworkAPITests: XCTestCase {
                         genres: [
                             .init(
                                 genreID: "18",
-                                name: .hipHopRap,
+                                name: "Hip-Hop/Rap",
                                 url: URL(string: "https://itunes.apple.com/us/genre/id18")!
                             ),
                             .init(
                                 genreID: "34",
-                                name: .music,
+                                name: "Music",
                                 url: URL(string: "https://itunes.apple.com/us/genre/id34")!
                             )
                         ],
@@ -199,12 +215,12 @@ class ItunesNetworkAPITests: XCTestCase {
                         genres: [
                             .init(
                                 genreID: "18",
-                                name: .hipHopRap,
+                                name: "Hip-Hop/Rap",
                                 url: URL(string: "https://itunes.apple.com/us/genre/id18")!
                             ),
                             .init(
                                 genreID: "34",
-                                name: .music,
+                                name: "Music",
                                 url: URL(string: "https://itunes.apple.com/us/genre/id34")!
                             )
                         ],
@@ -224,12 +240,12 @@ class ItunesNetworkAPITests: XCTestCase {
                         genres: [
                             .init(
                                 genreID: "18",
-                                name: .hipHopRap,
+                                name: "Hip-Hop/Rap",
                                 url: URL(string: "https://itunes.apple.com/us/genre/id18")!
                             ),
                             .init(
                                 genreID: "34",
-                                name: .music,
+                                name: "Music",
                                 url: URL(string: "https://itunes.apple.com/us/genre/id34")!
                             ),
                         ],
