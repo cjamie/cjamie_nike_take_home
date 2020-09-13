@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nike_Network
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -15,8 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-
-        window?.rootViewController = ViewController()
+        
+        // TODO: Coordinator, and viewModel
+        
+        window?.rootViewController = HomeController(fetcherAPI: RemoteItunesAPI())
         window?.makeKeyAndVisible()
     }
 

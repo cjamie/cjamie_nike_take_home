@@ -8,17 +8,17 @@
 
 import Foundation
 
-protocol ItunesRecordFetcher {
+public protocol ItunesRecordFetcher {
     func fetchDefaultRaw(router: URLRequestableHTTPRouter, completion: @escaping (Result<ItunesMonolith, Error>)->Void)
 }
 
-typealias URLRequestableHTTPRouter = URLRequestConvertible & HTTPRouter
+public typealias URLRequestableHTTPRouter = URLRequestConvertible & HTTPRouter
 
-class RemoteItunesAPI: ItunesRecordFetcher {
+public class RemoteItunesAPI: ItunesRecordFetcher {
     
     private let session: URLSession
     
-    init(session: URLSession) {
+    public init(session: URLSession = .shared) {
         self.session = session
     }
     
@@ -37,7 +37,7 @@ class RemoteItunesAPI: ItunesRecordFetcher {
     
     // MARK: - ItunesRecordFetcher
     
-    func fetchDefaultRaw(router: URLRequestableHTTPRouter, completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
+    public func fetchDefaultRaw(router: URLRequestableHTTPRouter, completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
         do {
             let request = try router.asURLRequest()
             session.dataTask(with: request) {

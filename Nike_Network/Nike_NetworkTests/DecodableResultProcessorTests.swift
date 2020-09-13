@@ -74,7 +74,7 @@ class DecodableResultProcessorTests: XCTestCase {
     
     // MARK: - Helpers
 
-    func makeSUT<T: Decodable>(
+    private func makeSUT<T: Decodable>(
         data: Data? = nil,
         response: URLResponse? = nil,
         error: Error? = nil,

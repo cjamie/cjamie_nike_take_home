@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol HTTPRouter {
+public protocol HTTPRouter {
     var method: String { get } // this should not be an enum
     var host: String { get }
     var scheme: String { get }
@@ -42,12 +42,12 @@ extension HTTPRouter {
     }
 }
 
-protocol URLRequestConvertible {
+public protocol URLRequestConvertible {
     func asURLRequest() throws -> URLRequest
 }
 
 extension HTTPRouter where Self: URLRequestConvertible {
-    func asURLRequest() throws -> URLRequest {
+    public func asURLRequest() throws -> URLRequest {
         guard !method.isEmpty else { throw NetworkingError.malformedRequest }
         var request = URLRequest(url: try baseURL())
         request.httpMethod = method

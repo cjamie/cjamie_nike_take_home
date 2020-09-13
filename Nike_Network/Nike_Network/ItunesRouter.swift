@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct ITunesRouter: HTTPRouter, Equatable, URLRequestConvertible {
+public struct ITunesRouter: HTTPRouter, Equatable, URLRequestConvertible {
     
-    static let nikeDefault = ITunesRouter(
+    public static let nikeDefault = ITunesRouter(
         countryOrRegion: Constants.unitedStates,
         mediaType: Constants.appleMusic,
         feedType: Constants.topAlbums,
@@ -41,19 +41,19 @@ struct ITunesRouter: HTTPRouter, Equatable, URLRequestConvertible {
     
     // MARK: - HTTPRouter
     
-    var method: String {
+    public var method: String {
         return Constants.get
     }
     
-    var host: String {
+    public var host: String {
         return Constants.itunesHost
     }
     
-    var scheme: String {
+    public var scheme: String {
         return Constants.https
     }
     
-    var path: String {
+    public var path: String {
         
         let explicitString = allowExplicit ? "explicit" : "non-explicit"
         
@@ -61,11 +61,11 @@ struct ITunesRouter: HTTPRouter, Equatable, URLRequestConvertible {
         
     }
     
-    var parameters: [String : String] {
+    public var parameters: [String : String] {
         return [:]
     }
     
-    var additionalHttpHeaders: [String : String] {
+    public var additionalHttpHeaders: [String : String] {
         return [:]
     }
 

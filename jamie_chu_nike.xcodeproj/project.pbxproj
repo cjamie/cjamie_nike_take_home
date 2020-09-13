@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D0E5FC9250ED0620003A8C2 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0E5FC8250ED0620003A8C2 /* HomeViewModelTests.swift */; };
 		7D6BF7D1250C765800C824D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF7D0250C765800C824D7 /* AppDelegate.swift */; };
 		7D6BF7D3250C765800C824D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF7D2250C765800C824D7 /* SceneDelegate.swift */; };
-		7D6BF7D5250C765800C824D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF7D4250C765800C824D7 /* ViewController.swift */; };
+		7D6BF7D5250C765800C824D7 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF7D4250C765800C824D7 /* HomeController.swift */; };
 		7D6BF7DA250C765800C824D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BF7D9250C765800C824D7 /* Assets.xcassets */; };
 		7D6BF7DD250C765800C824D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6BF7DB250C765800C824D7 /* LaunchScreen.storyboard */; };
 		7D6BF7E8250C765900C824D7 /* jamie_chu_nikeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF7E7250C765900C824D7 /* jamie_chu_nikeTests.swift */; };
@@ -57,10 +58,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7D0E5FC8250ED0620003A8C2 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		7D6BF7CD250C765700C824D7 /* jamie_chu_nike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jamie_chu_nike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6BF7D0250C765800C824D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D6BF7D2250C765800C824D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7D6BF7D4250C765800C824D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7D6BF7D4250C765800C824D7 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		7D6BF7D9250C765800C824D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D6BF7DC250C765800C824D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D6BF7DE250C765800C824D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,7 +118,7 @@
 			children = (
 				7D6BF7D0250C765800C824D7 /* AppDelegate.swift */,
 				7D6BF7D2250C765800C824D7 /* SceneDelegate.swift */,
-				7D6BF7D4250C765800C824D7 /* ViewController.swift */,
+				7D6BF7D4250C765800C824D7 /* HomeController.swift */,
 				7D6BF7D9250C765800C824D7 /* Assets.xcassets */,
 				7D6BF7DB250C765800C824D7 /* LaunchScreen.storyboard */,
 				7D6BF7DE250C765800C824D7 /* Info.plist */,
@@ -129,6 +131,7 @@
 			children = (
 				7D6BF7E7250C765900C824D7 /* jamie_chu_nikeTests.swift */,
 				7D6BF7E9250C765900C824D7 /* Info.plist */,
+				7D0E5FC8250ED0620003A8C2 /* HomeViewModelTests.swift */,
 			);
 			path = jamie_chu_nikeTests;
 			sourceTree = "<group>";
@@ -273,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D6BF7D5250C765800C824D7 /* ViewController.swift in Sources */,
+				7D6BF7D5250C765800C824D7 /* HomeController.swift in Sources */,
 				7D6BF7D1250C765800C824D7 /* AppDelegate.swift in Sources */,
 				7D6BF7D3250C765800C824D7 /* SceneDelegate.swift in Sources */,
 			);
@@ -284,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D6BF7E8250C765900C824D7 /* jamie_chu_nikeTests.swift in Sources */,
+				7D0E5FC9250ED0620003A8C2 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

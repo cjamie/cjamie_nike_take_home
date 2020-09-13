@@ -10,31 +10,31 @@ import Foundation
 
 
 public struct ItunesMonolith: Codable, Equatable {
-    let feed: Feed
+    public let feed: Feed
 }
 
 // MARK: - Feed
 public struct Feed: Codable, Equatable {
-    let title: String
-    let id: String // this probably should not be url
-    let author: Author
-    let links: [Link]
-    let copyright, country: String
-    let icon: URL
-    let updated: Date
-    let results: [AlbumResult]
+    public let title: String
+    public let id: String // this probably should not be url
+    public let author: Author
+    public let links: [Link]
+    public let copyright, country: String
+    public let icon: URL
+    public let updated: Date
+    public let results: [AlbumResult]
 }
 
 // MARK: - Author
-struct Author: Codable, Equatable {
-    let name: String
-    let uri: URL // this can be url
+public struct Author: Codable, Equatable {
+    public let name: String
+    public let uri: URL // this can be url
 }
 
 // MARK: - Link
-struct Link: Codable, Equatable {
-    let linkSelf: URL? // this can be url
-    let alternate: URL? // this can be url
+public struct Link: Codable, Equatable {
+    public let linkSelf: URL? // this can be url
+    public let alternate: URL? // this can be url
 
     enum CodingKeys: String, CodingKey {
         case linkSelf = "self"
@@ -43,16 +43,16 @@ struct Link: Codable, Equatable {
 }
 
 // MARK: - Result
-struct AlbumResult: Codable, Equatable {
-    let artistName, id, releaseDate, name: String
-    let kind: Kind
-    let copyright: String?
-    let artistID: String
-    let contentAdvisoryRating: String? // TODO: - this should be an enum?
-    let artistURL: URL
-    let artworkUrl100: URL
-    let genres: [Genre]
-    let url: URL
+public struct AlbumResult: Codable, Equatable {
+    public let artistName, id, releaseDate, name: String
+    public let kind: Kind
+    public let copyright: String?
+    public let artistID: String
+    public let contentAdvisoryRating: String? // TODO: - this should be an enum?
+    public let artistURL: URL
+    public let artworkUrl100: URL
+    public let genres: [Genre]
+    public let url: URL
 
     enum CodingKeys: String, CodingKey {
         case artistName, id, releaseDate, name, kind, copyright
@@ -64,10 +64,10 @@ struct AlbumResult: Codable, Equatable {
 }
 
 // MARK: - Genre
-struct Genre: Codable, Equatable {
-    let genreID: String
-    let name: String
-    let url: URL
+public struct Genre: Codable, Equatable {
+    public let genreID: String
+    public let name: String
+    public let url: URL
 
     enum CodingKeys: String, CodingKey {
         case genreID = "genreId"
@@ -75,6 +75,6 @@ struct Genre: Codable, Equatable {
     }
 }
 
-enum Kind: String, Codable, Equatable {
+public enum Kind: String, Codable {
     case album = "album"
 }
