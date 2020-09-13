@@ -28,16 +28,10 @@ class DataResultProcessorTests: XCTestCase {
 
     func test_validresponseAndData_returnsDataInSuccess() {
         // GIVEN
-        let validResponse = HTTPURLResponse(
-            url: anyURL(),
-            statusCode: 200,
-            httpVersion: nil,
-            headerFields: nil
-        )
         let expectedData = anyData()
         
         // WHEN
-        let (_, result) = makeSUT(data: expectedData, response: validResponse)
+        let (_, result) = makeSUT(data: expectedData, response: validHTTPURLResponse())
         
         // THEN
         switch result {
@@ -51,12 +45,11 @@ class DataResultProcessorTests: XCTestCase {
     func test_validResponse_withBadResponseCode_withValidEmptyStringData_returnsNoResponseError() {
         // GIVEN
         let invalidStatusCode = 404
-        let validResponse = HTTPURLResponse(
-            url: anyURL(),
-            statusCode: invalidStatusCode,
-            httpVersion: nil,
-            headerFields: nil
-        )
+        
+        guard let validResponse = validHTTPURLResponse(code: invalidStatusCode) else {
+            XCTFail()
+            return
+        }
         
         let expectedError = NetworkingError.badResponse(code: invalidStatusCode)
         // WHEN
@@ -83,6 +76,34 @@ class DataResultProcessorTests: XCTestCase {
                 XCTFail()
             case .failure(let actualError):
                 XCTAssertEqual(actualError as? NetworkingError, expectedError)
+        }
+    }
+    
+    func test_validResponse_withNonEmptyData_thatIsParsableDirectlyToAString_returnsServerError() {
+        let exampleErrorMessageFromServer = "Hello, this is the server here to tell you that something went wrong. 404 or something :shrug:"
+        let messageAsData = exampleErrorMessageFromServer.data(using: .utf8)
+        let expectedError = NetworkingError.serverError(exampleErrorMessageFromServer)
+        let badStatusCode = 404
+        
+        let (_, result) = makeSUT(data: messageAsData, response: validHTTPURLResponse(code: badStatusCode))
+        
+        switch result {
+        case .failure(let actualError):
+            XCTAssertEqual(actualError as? NetworkingError, expectedError)
+        case .success:
+            XCTFail()
+        }
+    }
+    
+    func test_validResponse_withoutData_returnsNoDataError() {
+        let (_, result) = makeSUT(response: validHTTPURLResponse())
+        let expectedError = NetworkingError.noData
+        
+        switch result {
+        case .success:
+            XCTFail()
+        case .failure(let actualError):
+            XCTAssertEqual(expectedError, actualError as? NetworkingError)
         }
     }
     
@@ -117,7 +138,14 @@ class DataResultProcessorTests: XCTestCase {
 
         // MARK: - Helpers
         private static let acceptableResponseCodes = (200...304) // we should be able to accept many response codes
-
     }
     
+    private func validHTTPURLResponse(code: Int = 200) -> HTTPURLResponse? {
+        return HTTPURLResponse(
+            url: anyURL(),
+            statusCode: code,
+            httpVersion: nil,
+            headerFields: nil
+        )
+    }
 }
