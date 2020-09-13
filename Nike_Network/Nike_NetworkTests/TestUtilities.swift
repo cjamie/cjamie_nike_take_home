@@ -67,3 +67,12 @@ func anyData() -> Data {
 func anyURLResponse() -> URLResponse {
     return URLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
 }
+
+func validHTTPURLResponse(code: Int = 200) -> HTTPURLResponse? {
+    return HTTPURLResponse(
+        url: anyURL(),
+        statusCode: code,
+        httpVersion: nil,
+        headerFields: nil
+    )
+}

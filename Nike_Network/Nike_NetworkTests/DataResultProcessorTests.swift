@@ -113,13 +113,4 @@ class DataResultProcessorTests: XCTestCase {
         let processor = DataResultProcessor(rawResponse: (data, response, error))
         return (processor, processor.result)
     }
-    
-    private func validHTTPURLResponse(code: Int = 200) -> HTTPURLResponse? {
-        return HTTPURLResponse(
-            url: anyURL(),
-            statusCode: code,
-            httpVersion: nil,
-            headerFields: nil
-        )
-    }
 }

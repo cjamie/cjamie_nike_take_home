@@ -30,9 +30,11 @@ enum NetworkingError: Error, Equatable {
              (.noData, .noData),
              (.noImage, .noImage):
             return true
-        case let (.swift(error1), .swift(error2)),
-             let (.jsonDecoding(error1), .jsonDecoding(error2)):
+        case let (.swift(error1), .swift(error2)):
             return error1.localizedDescription == error2.localizedDescription
+        // TOOD: - need to capture these errors somehow in tests
+        case let (.jsonDecoding(error1), .jsonDecoding(error2)):
+            return true
         case let (.badResponse(code1), .badResponse(code2)):
             return code1 == code2
         case let (.serverError(string1), .serverError(string2)):
