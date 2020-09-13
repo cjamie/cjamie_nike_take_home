@@ -8,8 +8,9 @@
 
 import Foundation
 
+typealias RawResponse = (data: Data?, response: URLResponse?, error: Error?)
+
 struct DecodableResultProcessor<T: Decodable> {
-    typealias RawResponse = (data: Data?, response: URLResponse?, error: Error?)
     private let decoder: JSONDecoder
     private let rawResponse: RawResponse
     
@@ -26,7 +27,22 @@ struct DecodableResultProcessor<T: Decodable> {
         if let error = rawResponse.error {
             return .failure(NetworkingError.swift(error))
         }
-        
+        guard let responseCode = (rawResponse.response as? HTTPURLResponse)?.statusCode else {
+            return .failure(NetworkingError.noResponse)
+        }
         return .failure(NSError())
+//        guard Self.acceptableResponseCodes.contains(responseCode) else {
+//            if let data = rawResponse.data, let serverErrorString = String(data: data, encoding: .utf8) {
+//                return .failure(NetworkingError.serverError(serverErrorString))
+//            }
+//            return .failure(NetworkingError.badResponse(code: responseCode))
+//        }
+//        guard let data = rawResponse.data else {
+//            return .failure(NetworkingError.noData)
+//        }
+//        return .success(data)
     }
+    
+//    private static let acceptableResponseCodes = (200...304)
+    
 }

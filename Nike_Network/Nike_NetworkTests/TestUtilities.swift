@@ -54,3 +54,16 @@ private enum MyError: Error {
 func anySwiftError() -> Error {
     return MyError.first
 }
+
+
+func anyURL() -> URL {
+    return URL(string: "https://google.com/") ?? URL(fileReferenceLiteralResourceName: anyRandomNonEmptyString())
+}
+
+func anyData() -> Data {
+    return Data()
+}
+
+func anyURLResponse() -> URLResponse {
+    return URLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
+}
