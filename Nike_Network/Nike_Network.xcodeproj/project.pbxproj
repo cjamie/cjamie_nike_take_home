@@ -20,6 +20,7 @@
 		7D6BF998250DD44A00C824D7 /* HTTPResultValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF997250DD44A00C824D7 /* HTTPResultValidatorTests.swift */; };
 		7D6BF9A0250DE09400C824D7 /* DecodableResultProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */; };
 		7D6BF9A4250DE21900C824D7 /* DataResultProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */; };
+		7D6BF9AA250DF23000C824D7 /* DataResultProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		7D6BF997250DD44A00C824D7 /* HTTPResultValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResultValidatorTests.swift; sourceTree = "<group>"; };
 		7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResultProcessor.swift; sourceTree = "<group>"; };
 		7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResultProcessorTests.swift; sourceTree = "<group>"; };
+		7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResultProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */,
 				7D6BF991250DCF3500C824D7 /* ItunesNetworkAPI.swift */,
 				7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */,
+				7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */,
 			);
 			path = Nike_Network;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				7D6BF981250C842A00C824D7 /* HTTPRouter.swift in Sources */,
 				7D6BF9A0250DE09400C824D7 /* DecodableResultProcessor.swift in Sources */,
 				7D6BF992250DCF3500C824D7 /* ItunesNetworkAPI.swift in Sources */,
+				7D6BF9AA250DF23000C824D7 /* DataResultProcessor.swift in Sources */,
 				7D6BF987250DA4EF00C824D7 /* NetworkingError.swift in Sources */,
 				7D6BF985250DA4D600C824D7 /* ItunesRouter.swift in Sources */,
 			);

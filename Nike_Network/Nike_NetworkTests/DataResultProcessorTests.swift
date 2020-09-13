@@ -114,32 +114,6 @@ class DataResultProcessorTests: XCTestCase {
         return (processor, processor.result)
     }
     
-    struct DataResultProcessor {
-        let rawResponse: RawResponse
-        
-        var result: Result <Data, Error> {
-            if let error = rawResponse.error {
-                return .failure(NetworkingError.swift(error))
-            }
-            guard let responseCode = (rawResponse.response as? HTTPURLResponse)?.statusCode else {
-                return .failure(NetworkingError.noResponse)
-            }
-            guard Self.acceptableResponseCodes.contains(responseCode) else {
-                if let data = rawResponse.data, let serverErrorString = String(data: data, encoding: .utf8), !serverErrorString.isEmpty {
-                    return .failure(NetworkingError.serverError(serverErrorString))
-                }
-                return .failure(NetworkingError.badResponse(code: responseCode))
-            }
-            guard let data = rawResponse.data else {
-                return .failure(NetworkingError.noData)
-            }
-            return .success(data)
-        }
-
-        // MARK: - Helpers
-        private static let acceptableResponseCodes = (200...304) // we should be able to accept many response codes
-    }
-    
     private func validHTTPURLResponse(code: Int = 200) -> HTTPURLResponse? {
         return HTTPURLResponse(
             url: anyURL(),
