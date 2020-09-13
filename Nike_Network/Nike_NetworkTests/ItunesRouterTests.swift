@@ -12,7 +12,7 @@ import XCTest
 class ItunesRouterTests: XCTestCase {
     
     func test_defaultNikeRouter_hasExpectedValuesDescribedInTheAssignment() {
-        
+        // GIVEN
         let sut = ITunesRouter.nikeDefault
         
         let expected = makeSUT(
@@ -24,6 +24,7 @@ class ItunesRouterTests: XCTestCase {
             format: "json"
         )
         
+        // THEN
         XCTAssertEqual(sut, expected)
     }
     
@@ -65,7 +66,7 @@ class ItunesRouterTests: XCTestCase {
         XCTAssert(sut.additionalHttpHeaders.isEmpty)
     }
         
-    //sample iPhone app that displays the top 100 albums across all genres using Apple’s RSS generator
+    // MARK: - Helpers
     
     private func makeSUT(
         countryOrRegion: String = anyRandomNonEmptyString(),

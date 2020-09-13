@@ -40,23 +40,22 @@ class HttpRouterTests: XCTestCase {
         let headers = ["Authorization": "someJWTTokenMaybe"]
         let sut = makeSUT(additionalHttpHeaders: headers)
         
-        // WHEN
-        let actualRequest: URLRequest?
-        if let sut = sut as? URLRequestConvertible {
-            do {
-                actualRequest = try sut.asURLRequest()
-            } catch {
-                actualRequest = nil
-            }
-        } else {
-            actualRequest = nil
+        guard let convertibleSut = sut as? URLRequestConvertible else {
             XCTFail("we are testing out the conditional conformance extension")
+            return
         }
-        
-        // THEN
-        XCTAssertNotNil(actualRequest?.allHTTPHeaderFields)
-        XCTAssertEqual(actualRequest?.allHTTPHeaderFields, headers)
+
+        // WHEN
+        do {
+            // THEN
+            let actualRequest = try convertibleSut.asURLRequest()
+            XCTAssertNotNil(actualRequest.allHTTPHeaderFields)
+            XCTAssertEqual(actualRequest.allHTTPHeaderFields, headers)
+        } catch {
+            XCTFail("Unintended test")
+        }
     }
+    
     
     func test_baseURL_mustHaveSlashPrefix_inPathProperty() {
         // GIVEN

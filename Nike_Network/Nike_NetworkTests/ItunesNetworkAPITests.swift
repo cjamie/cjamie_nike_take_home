@@ -10,8 +10,29 @@ import XCTest
 
 class ItunesNetworkAPITests: XCTestCase {
 
-
+    func test_apiReturnsMalformedRequest() {
+        // GIVEN
+        let sut = makeSUT()
+        
+        // WHEN
+//        sut.fetchDefaultRecord { result in
+//            
+//        }
+        
+        
+        
+    }
+    
+    // MARK: - Helpers
+    
+    func makeSUT() -> ItunesNetworkAPI {
+        return .init()
+    }
+//the top 100 albums across all genres using Apple’s
     class ItunesNetworkAPI {
+//        func fetchDefaultRecord (completion: Result <>){
+//
+//        }
         
     }
 }

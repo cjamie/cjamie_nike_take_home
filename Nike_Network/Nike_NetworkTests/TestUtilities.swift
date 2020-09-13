@@ -46,3 +46,11 @@ func anyPath() -> String {
 func anyStringWithoutSpaces() -> String {
     return "anyStringWithoutSpaces"
 }
+
+private enum MyError: Error {
+    case first
+}
+
+func anySwiftError() -> Error {
+    return MyError.first
+}
