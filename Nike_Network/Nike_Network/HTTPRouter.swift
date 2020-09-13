@@ -48,6 +48,7 @@ protocol URLRequestConvertible {
 
 extension HTTPRouter where Self: URLRequestConvertible {
     func asURLRequest() throws -> URLRequest {
+        guard !method.isEmpty else { throw NetworkingError.malformedRequest }
         var request = URLRequest(url: try baseURL())
         request.httpMethod = method
         request.allHTTPHeaderFields = additionalHttpHeaders

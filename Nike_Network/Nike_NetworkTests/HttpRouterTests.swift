@@ -18,6 +18,7 @@ class HttpRouterTests: XCTestCase {
 
         // WHEN
         let actual = try? sut.baseURL()
+        
         // THEN
         XCTAssertEqual(expected, actual)
     }
@@ -39,8 +40,8 @@ class HttpRouterTests: XCTestCase {
         let headers = ["Authorization": "someJWTTokenMaybe"]
         let sut = makeSUT(additionalHttpHeaders: headers)
         
-        let actualRequest: URLRequest?
         // WHEN
+        let actualRequest: URLRequest?
         if let sut = sut as? URLRequestConvertible {
             do {
                 actualRequest = try sut.asURLRequest()
@@ -52,13 +53,16 @@ class HttpRouterTests: XCTestCase {
             XCTFail("we are testing out the conditional conformance extension")
         }
         
+        // THEN
         XCTAssertNotNil(actualRequest?.allHTTPHeaderFields)
         XCTAssertEqual(actualRequest?.allHTTPHeaderFields, headers)
     }
     
     func test_baseURL_mustHaveSlashPrefix_inPathProperty() {
+        // GIVEN
         let sut = makeSUT(path: "noSlashString")
-        
+
+        // WHEN
         let actualError: Error?
         do {
             _ = try sut.baseURL()
@@ -67,6 +71,7 @@ class HttpRouterTests: XCTestCase {
             actualError = error
         }
         
+        // THEN
         XCTAssertEqual(actualError as? NetworkingError, NetworkingError.malformedURL)
     }
     
@@ -125,6 +130,51 @@ class HttpRouterTests: XCTestCase {
         XCTAssertEqual(expectedError, actualError as? NetworkingError)
     }
     
+    func test_urlRequest_withEmptyHTTPMethod_throwMalformedRequestError() {
+        let sut = makeSUT(method: emptyString())
+        let expectedError: NetworkingError = .malformedRequest
+        
+        let actualError: Error?
+        
+        if let sut = sut as? URLRequestConvertible {
+            do {
+                _ = try sut.asURLRequest()
+                XCTFail("we try block expected to be invoked")
+                actualError = nil
+            } catch {
+                actualError = error
+            }
+        } else {
+            XCTFail("we are testing out the conditional conformance extension")
+            actualError = nil
+        }
+        
+        XCTAssertEqual(expectedError, actualError as? NetworkingError)
+
+    }
+    
+    func test_urlRequest_willThrowMalformedURLError_ifBaseURLAlsoThrows() {
+        let sut = makeSUT(method: emptyString())
+        let expectedError: NetworkingError = .malformedRequest
+        
+        let actualError: Error?
+        
+        if let sut = sut as? URLRequestConvertible {
+            do {
+                _ = try sut.asURLRequest()
+                XCTFail("we try block expected to be invoked")
+                actualError = nil
+            } catch {
+                actualError = error
+            }
+        } else {
+            XCTFail("we are testing out the conditional conformance extension")
+            actualError = nil
+        }
+        
+        XCTAssertEqual(expectedError, actualError as? NetworkingError)
+    }
+    
     func test_routerProperties_containsProperInputs() {
         let sut = makeSUT(
             method: anyString(),
@@ -145,7 +195,7 @@ class HttpRouterTests: XCTestCase {
     
     // MARK: - Helpers
     
-    func makeSUT(
+    private func makeSUT(
         method: String = "GET",
         host: String = "google.com",
         scheme: String = "https",
@@ -162,43 +212,14 @@ class HttpRouterTests: XCTestCase {
             additionalHttpHeaders: additionalHttpHeaders
         )
     }
-        
-    struct HttpRouterSpy: HTTPRouter, URLRequestConvertible {
+    
+    private struct HttpRouterSpy: HTTPRouter, URLRequestConvertible {
         let method: String
         let host: String
         let scheme: String
         let path: String
         let parameters: [String : String]
         let additionalHttpHeaders: [String: String]
-    }
-    
-    private func emptyDictionary() -> [String: String] {
-        [:]
-    }
-    
-    private func emptyString() -> String {
-        ""
-    }
-    
-    private func anyString() -> String{
-        "anyString"
-    }
-    
-    private func anyHost() -> String {
-        "anyHost"
-    }
-    
-    private func anyScheme() -> String {
-        "anyScheme"
-    }
-    
-    private func anyPath() -> String {
-        "anyScheme"
-    }
-
-    // NOTE: - URLs will add include whitespace encoding if there are spaces
-    private func anyStringWithoutSpaces() -> String {
-        return "anyStringWithoutSpaces"
     }
 
 }
