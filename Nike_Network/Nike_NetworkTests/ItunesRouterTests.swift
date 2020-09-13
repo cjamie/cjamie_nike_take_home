@@ -48,7 +48,7 @@ class ItunesRouterTests: XCTestCase {
             genre: genre,
             resultsLimit: resultsLimit,
             format: format,
-            allowExplicit: false
+            allowExplicit: allowExplicit
         )
         
         // THEN
