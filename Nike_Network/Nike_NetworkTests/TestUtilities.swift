@@ -20,6 +20,12 @@ func anyString() -> String{
     "anyString"
 }
 
+// MARK: - Attribution: https://stackoverflow.com/questions/26845307/generate-random-alphanumeric-string-in-swift
+func anyRandomNonEmptyString() -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<10).map{ _ in letters.randomElement()! })
+}
+
 func anyInt() -> Int {
     return 839249
 }

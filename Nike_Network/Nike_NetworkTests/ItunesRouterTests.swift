@@ -11,7 +11,7 @@ import XCTest
 
 class ItunesRouterTests: XCTestCase {
     
-    func test_defaultRouter_hasExpectedValuesDescribedInTheAssignment() {
+    func test_defaultNikeRouter_hasExpectedValuesDescribedInTheAssignment() {
         
         let sut = ITunesRouter.nikeDefault
         
@@ -29,16 +29,19 @@ class ItunesRouterTests: XCTestCase {
     
     func test_itunesRouter_hasExpectedHTTPRouterProperties() {
         
-//        let sut = ITunesRouter.nikeDefault
+        // GIVEN
             
-        let countryOrRegion = "us"
-        let mediaType = "mediaType"
-        let feedType = "feedType"
-        let genre = "genre"
+        let countryOrRegion = anyRandomNonEmptyString()
+        let mediaType = anyRandomNonEmptyString()
+        let feedType = anyRandomNonEmptyString()
+        let genre =  anyRandomNonEmptyString()
         let resultsLimit = anyInt()
-        let format = "format"
-        let allowExplicit = false
-        
+        let format = anyRandomNonEmptyString()
+        let allowExplicit = Bool.random()
+
+        let expectedPath = "/api/v1/\(countryOrRegion)/\(mediaType)/\(feedType)/\(genre)/\(resultsLimit)/\(allowExplicit ? "explicit" : "non-explicit").\(format)"
+
+        // WHEN
         let sut = makeSUT(
             countryOrRegion: countryOrRegion,
             mediaType: mediaType,
@@ -49,27 +52,29 @@ class ItunesRouterTests: XCTestCase {
             allowExplicit: false
         )
         
-        let expectedPath = "/api/v1/\(countryOrRegion)/\(mediaType)/\(feedType)/\(genre)/\(resultsLimit)/\(allowExplicit ? "explicit" : "non-explicit").\(format)"
-        XCTAssertEqual(sut.method, "GET")
-        XCTAssertEqual(sut.host, "rss.itunes.apple.com")
-        XCTAssertEqual(sut.scheme, "https")
+        // THEN
         
+        let expected = [
+            (sut.method, "GET"),
+            (sut.host, "rss.itunes.apple.com"),
+            (sut.scheme, "https"),
+            (sut.path, expectedPath)
+        ].allSatisfy { $0 == $1 }
         
-        XCTAssertEqual(sut.path, "/api/v1/us/\(mediaType)/\(feedType)/\(genre)/\(resultsLimit)/\(allowExplicit ? "explicit" : "non-explicit").\(format)")
-        
+        XCTAssert(expected)
         XCTAssert(sut.parameters.isEmpty)
         XCTAssert(sut.additionalHttpHeaders.isEmpty)
     }
-    
+        
     //sample iPhone app that displays the top 100 albums across all genres using Apple’s RSS generator
     
     private func makeSUT(
-        countryOrRegion: String = anyString(),
-        mediaType: String = anyString(),
-        feedType: String = anyString(),
-        genre: String = anyString(),
+        countryOrRegion: String = anyRandomNonEmptyString(),
+        mediaType: String = anyRandomNonEmptyString(),
+        feedType: String = anyRandomNonEmptyString(),
+        genre: String = anyRandomNonEmptyString(),
         resultsLimit: Int = anyInt(),
-        format: String = anyString(),
+        format: String = anyRandomNonEmptyString(),
         allowExplicit: Bool = true
     ) -> ITunesRouter {
         // all inputted values can be in dictionaries
