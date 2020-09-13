@@ -68,9 +68,10 @@ class DataResultProcessorTests: XCTestCase {
     
     
     func test_withResponse_thatCannotBeDowncasted_toHTTPURLResponse_returnsNoReponseError() {
+        // GIVEN, WHEN
         let (_, result) = makeSUT(response: anyURLResponse())
-        
         let expectedError = NetworkingError.noResponse
+        // THEN
         switch result {
             case .success:
                 XCTFail()
@@ -80,6 +81,7 @@ class DataResultProcessorTests: XCTestCase {
     }
     
     func test_validResponse_withNonEmptyData_thatIsParsableDirectlyToAString_returnsServerError() {
+        // GIVEN, WHEN
         let exampleErrorMessageFromServer = "Hello, this is the server here to tell you that something went wrong. 404 or something :shrug:"
         let messageAsData = exampleErrorMessageFromServer.data(using: .utf8)
         let expectedError = NetworkingError.serverError(exampleErrorMessageFromServer)
@@ -87,6 +89,7 @@ class DataResultProcessorTests: XCTestCase {
         
         let (_, result) = makeSUT(data: messageAsData, response: validHTTPURLResponse(code: badStatusCode))
         
+        // THEN
         switch result {
         case .failure(let actualError):
             XCTAssertEqual(actualError as? NetworkingError, expectedError)
@@ -96,9 +99,11 @@ class DataResultProcessorTests: XCTestCase {
     }
     
     func test_validResponse_withoutData_returnsNoDataError() {
+        // GIVEN, WHEN
         let (_, result) = makeSUT(response: validHTTPURLResponse())
         let expectedError = NetworkingError.noData
         
+        // THEN
         switch result {
         case .success:
             XCTFail()

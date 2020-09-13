@@ -35,28 +35,64 @@ class ItunesNetworkAPITests: XCTestCase {
         XCTAssertEqual(capturedMonolithInstance, expectedMonolith())
         
     }
+    
+    func test_apiReturnsOnMainThread() {
+        
+    }
         
     // MARK: - Helpers
     
     private func makeSUT(source: Source = .local) -> ItunesRecordFetcher {
         switch source {
         case .local:
-            
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(customDateFormatter)
-            return LocallyStubbedItunesAPI(
-                decoder: decoder,
-                data: privateStub
-            )
+            return LocallyStubbedItunesAPI(data: privateStub)
         case .remote:
-            return RemoteItunesAPI()
+            return RemoteItunesAPI(session: .shared)
         }
     }
     
     private class RemoteItunesAPI: ItunesRecordFetcher {
-                
+        
+        private let session: URLSession
+        init(session: URLSession) {
+            self.session = session
+        }
+        
+        private static let nikeDateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            return formatter
+        }()
+        
+        private static let nikeItunesJsonDecoder: JSONDecoder = {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .formatted(nikeDateFormatter)
+            return decoder
+        }()
+
+        
+        // MARK: - ItunesRecordFetcher
+        
         func fetchDefaultRaw(completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
-            
+            do {
+                let request = try ITunesRouter.nikeDefault.asURLRequest()
+                session.dataTask(with: request) {
+                    
+                    let processor: DecodableResultProcessor<ItunesMonolith> = DecodableResultProcessor(
+                        rawResponse: ($0, $1, $2),
+                        decoder: Self.nikeItunesJsonDecoder
+                    )
+                    
+                    Self.dispatch { completion(processor.process()) }
+                }.resume()
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        
+        private static func dispatch(block: @escaping ()-> Void) {
+            DispatchQueue.main.async(execute: block)
         }
     }
     
@@ -65,14 +101,30 @@ class ItunesNetworkAPITests: XCTestCase {
         private let decoder: JSONDecoder
         private let data: Data
         let processor: DecodableResultProcessor<ItunesMonolith>
+        
+        static let nikeDateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            return formatter
+        }()
 
-        init(decoder: JSONDecoder, data: Data) {
-            self.decoder = decoder
+        init(data: Data) {
             self.data = data
-            self.processor = DecodableResultProcessor(rawResponse: (data, validHTTPURLResponse(), nil), decoder: decoder)
+
+            self.decoder = {
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.dateDecodingStrategy = .formatted(Self.nikeDateFormatter)
+                return jsonDecoder
+            }()
+            self.processor = DecodableResultProcessor(
+                rawResponse: (data, validHTTPURLResponse(), nil),
+                decoder: decoder
+            )
         }
         
         func fetchDefaultRaw(completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
+            assert(Thread.isMainThread)
             completion(processor.process())
         }
     }
@@ -81,17 +133,10 @@ class ItunesNetworkAPITests: XCTestCase {
         case local
         case remote
     }
-    
-    private let customDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return formatter
-    }()
-    
+        
     // TODO: - remove force unwraps on dates
     private func expectedMonolith() -> ItunesMonolith {
-        let updatedDate = customDateFormatter.date(from: "2020-09-12T01:49:37.000-07:00") ?? Date()
+        let updatedDate = LocallyStubbedItunesAPI.nikeDateFormatter.date(from: "2020-09-12T01:49:37.000-07:00") ?? Date()
         return .init(
             feed: .init(
                 title: "Top Albums",

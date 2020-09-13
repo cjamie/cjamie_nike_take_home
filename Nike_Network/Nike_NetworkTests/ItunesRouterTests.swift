@@ -53,7 +53,6 @@ class ItunesRouterTests: XCTestCase {
         )
         
         // THEN
-        
         let expected = [
             (sut.method, "GET"),
             (sut.host, "rss.itunes.apple.com"),
@@ -67,7 +66,7 @@ class ItunesRouterTests: XCTestCase {
     }
     
     func test_itunesRouterInstance_isURLRequestConvertible() {
-        // NOTE: - why is this failing?
+        // NOTE: - why is this failing for ItunesRouter.self
         XCTAssert(ITunesRouter.nikeDefault is URLRequestConvertible)
     }
         

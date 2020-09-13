@@ -11,8 +11,7 @@ import XCTest
 
 class DecodableResultProcessorTests: XCTestCase {
     
-    func test_init_withOnlyError_returnsWrappedNativeSwiftError_whenProcessed() {
-        
+    func test_init_withOnlyError_returnsWrappedNativeSwiftError_whenProcessed() {        
         // GIVEN
         let error = anySwiftError()
         let sut: DecodableResultProcessor<AnyDecodable> = makeSUT(error: error)
@@ -52,6 +51,7 @@ class DecodableResultProcessorTests: XCTestCase {
     
     // TODO: - loosened equatable requirement for Networking.jsonDecoding, will want to revisit it in future
     func test_validResponse_andNonParsableData_returnsDecodingFailure() {
+        // GIVEN
         let sut: DecodableResultProcessor<AnyDecodable> = makeSUT(
             data: someNonDecodableStub.data(using: .utf8),
             response: validHTTPURLResponse()
@@ -59,8 +59,10 @@ class DecodableResultProcessorTests: XCTestCase {
         
         let expectedError = NetworkingError.jsonDecoding(anySwiftError())
         
+        // WHEN
         let result = sut.process()
         
+        // THEN
         switch result {
         case .success:
             XCTFail()

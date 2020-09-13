@@ -47,10 +47,11 @@ class HttpRouterTests: XCTestCase {
             return
         }
 
-        // WHEN
         do {
-            // THEN
+            // WHEN
             let actualRequest = try convertibleSut.asURLRequest()
+
+            // THEN
             XCTAssertNotNil(actualRequest.allHTTPHeaderFields)
             XCTAssertEqual(actualRequest.allHTTPHeaderFields, headers)
         } catch {
@@ -63,17 +64,15 @@ class HttpRouterTests: XCTestCase {
         // GIVEN
         let sut = makeSUT(path: "noSlashString")
 
-        // WHEN
-        let actualError: Error?
         do {
+            // WHEN
             _ = try sut.baseURL()
-            actualError = nil
+            XCTFail()
         } catch {
-            actualError = error
+            // THEN
+            XCTAssertEqual(error as? NetworkingError, NetworkingError.malformedURL)
         }
         
-        // THEN
-        XCTAssertEqual(actualError as? NetworkingError, NetworkingError.malformedURL)
     }
     
     // TODO: - refactor these three tests (host, scheme, path) to single function
