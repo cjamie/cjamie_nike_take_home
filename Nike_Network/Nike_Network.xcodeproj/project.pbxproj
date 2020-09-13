@@ -12,6 +12,8 @@
 		7D6BF962250C822300C824D7 /* Nike_Network.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D6BF954250C822300C824D7 /* Nike_Network.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7D6BF981250C842A00C824D7 /* HTTPRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF980250C842A00C824D7 /* HTTPRouter.swift */; };
 		7D6BF983250D390F00C824D7 /* HttpRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF982250D390F00C824D7 /* HttpRouterTests.swift */; };
+		7D6BF985250DA4D600C824D7 /* ItunesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF984250DA4D600C824D7 /* ItunesRouter.swift */; };
+		7D6BF987250DA4EF00C824D7 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,8 @@
 		7D6BF961250C822300C824D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D6BF980250C842A00C824D7 /* HTTPRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRouter.swift; sourceTree = "<group>"; };
 		7D6BF982250D390F00C824D7 /* HttpRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRouterTests.swift; sourceTree = "<group>"; };
+		7D6BF984250DA4D600C824D7 /* ItunesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesRouter.swift; sourceTree = "<group>"; };
+		7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				7D6BF954250C822300C824D7 /* Nike_Network.h */,
 				7D6BF955250C822300C824D7 /* Info.plist */,
 				7D6BF980250C842A00C824D7 /* HTTPRouter.swift */,
+				7D6BF984250DA4D600C824D7 /* ItunesRouter.swift */,
+				7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */,
 			);
 			path = Nike_Network;
 			sourceTree = "<group>";
@@ -203,6 +209,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D6BF981250C842A00C824D7 /* HTTPRouter.swift in Sources */,
+				7D6BF987250DA4EF00C824D7 /* NetworkingError.swift in Sources */,
+				7D6BF985250DA4D600C824D7 /* ItunesRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,11 +52,22 @@ class HttpRouterTests: XCTestCase {
             XCTFail("we are testing out the conditional conformance extension")
         }
         
-        XCTAssert(actualRequest?.allHTTPHeaderFields == headers)
-
-//        XCTAssertNotNil(request)
-        // THEN
-//        XCTAssertEqual(sut.additionalHttpHeaders as? [String: String], ["Authorization": "someJWTTokenMaybe"])
+        XCTAssertNotNil(actualRequest?.allHTTPHeaderFields)
+        XCTAssertEqual(actualRequest?.allHTTPHeaderFields, headers)
+    }
+    
+    func test_baseURL_mustHaveSlashPrefix_inPathProperty() {
+        let sut = makeSUT(path: "noSlashString")
+        
+        let actualError: Error?
+        do {
+            _ = try sut.baseURL()
+            actualError = nil
+        } catch {
+            actualError = error
+        }
+        
+        XCTAssertEqual(actualError as? NetworkingError, NetworkingError.malformedURL)
     }
     
     // TODO: - refactor these three tests (host, scheme, path) to single function
@@ -159,19 +170,8 @@ class HttpRouterTests: XCTestCase {
         let path: String
         let parameters: [String : String]
         let additionalHttpHeaders: [String: String]
-        
-//        func asURLRequest() throws -> URLRequest {
-//            throw NetworkingError.malformedURL
-////            guard let baseURL = try? baseURL() else { throw NetworkingError.malformedURL }
-////            var request = URLRequest(url: baseURL)
-////            request.httpMethod = method
-////            additionalHttpHeaders.forEach { header in
-////                guard let value = header.value as? String else { return }
-////                request.addValue(value, forHTTPHeaderField: header.key)
-////            }
-////            return request
-//        }
     }
+    
     private func emptyDictionary() -> [String: String] {
         [:]
     }
