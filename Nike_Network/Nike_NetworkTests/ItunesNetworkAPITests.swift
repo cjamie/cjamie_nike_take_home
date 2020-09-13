@@ -19,7 +19,7 @@ class ItunesNetworkAPITests: XCTestCase {
         // WHEN
         var capturedMonolithInstance: ItunesMonolith?
         
-        sut.fetchDefaultRaw { result in
+        sut.fetchDefaultRaw(router: ITunesRouter.nikeDefault) { result in
             defer { myExpectation.fulfill() }
             
             switch result {
@@ -42,17 +42,38 @@ class ItunesNetworkAPITests: XCTestCase {
         let localExpectation = expectation(description: "local" + #function)
         let remoteExpectation = expectation(description: "remote" + #function)
 
-        localSut.fetchDefaultRaw { _ in
+        localSut.fetchDefaultRaw(router: ITunesRouter.nikeDefault) { _ in
             localExpectation.fulfill()
             XCTAssert(Thread.isMainThread)
         }
-        remoteSut.fetchDefaultRaw { _ in
+        remoteSut.fetchDefaultRaw(router: ITunesRouter.nikeDefault) { _ in
             remoteExpectation.fulfill()
             XCTAssert(Thread.isMainThread)
         }
         
         wait(for: [localExpectation, remoteExpectation], timeout: 5)
         
+    }
+    
+    func test_remoteApi_returnError_onFailureToCreateRequest(){
+        let badRouter = BadRouter.convenience
+        let sut = makeSUT(source: .remote)
+        let expectedError = NetworkingError.malformedRequest
+        
+        let errorExpectation = expectation(description: #function)
+        
+        sut.fetchDefaultRaw(router: badRouter) { result in
+            defer { errorExpectation.fulfill() }
+            
+            switch result {
+            case .failure (let error):
+                XCTAssertEqual(expectedError, error as? NetworkingError)
+            case .success:
+                XCTFail("\(#function) should not succeed ")
+            }
+        }
+        
+        wait(for: [errorExpectation], timeout: 5)
     }
     
         
@@ -67,49 +88,16 @@ class ItunesNetworkAPITests: XCTestCase {
         }
     }
     
-    private class RemoteItunesAPI: ItunesRecordFetcher {
+    private enum BadRouter: URLRequestableHTTPRouter {
         
-        private let session: URLSession
-        init(session: URLSession) {
-            self.session = session
-        }
+        case `convenience`
         
-        private static let nikeDateFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            return formatter
-        }()
-        
-        private static let nikeItunesJsonDecoder: JSONDecoder = {
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .formatted(nikeDateFormatter)
-            return decoder
-        }()
-
-        
-        // MARK: - ItunesRecordFetcher
-        
-        func fetchDefaultRaw(completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
-            do {
-                let request = try ITunesRouter.nikeDefault.asURLRequest()
-                session.dataTask(with: request) {
-                    
-                    let processor: DecodableResultProcessor<ItunesMonolith> = DecodableResultProcessor(
-                        rawResponse: ($0, $1, $2),
-                        decoder: Self.nikeItunesJsonDecoder
-                    )
-                    
-                    Self.dispatch { completion(processor.process()) }
-                }.resume()
-            } catch {
-                completion(.failure(error))
-            }
-        }
-        
-        private static func dispatch(block: @escaping ()-> Void) {
-            DispatchQueue.main.async(execute: block)
-        }
+        var method: String { return emptyString() }
+        var host: String { return emptyString() }
+        var scheme: String { return emptyString() }
+        var path: String { return emptyString() }
+        var parameters: [String : String] { return [:] }
+        var additionalHttpHeaders: [String : String] { return [:] }
     }
     
     private class LocallyStubbedItunesAPI: ItunesRecordFetcher {
@@ -139,7 +127,7 @@ class ItunesNetworkAPITests: XCTestCase {
             )
         }
         
-        func fetchDefaultRaw(completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
+        func fetchDefaultRaw(router: URLRequestableHTTPRouter, completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
             assert(Thread.isMainThread)
             completion(processor.process())
         }
@@ -258,9 +246,6 @@ class ItunesNetworkAPITests: XCTestCase {
 
 }
 
-protocol ItunesRecordFetcher {
-    func fetchDefaultRaw(completion: @escaping (Result<ItunesMonolith, Error>)->Void)
-}
 
 private let privateStub: Data = """
 {

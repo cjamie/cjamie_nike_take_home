@@ -15,7 +15,7 @@
 		7D6BF987250DA4EF00C824D7 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */; };
 		7D6BF98C250DB5EB00C824D7 /* ItunesRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF98B250DB5EB00C824D7 /* ItunesRouterTests.swift */; };
 		7D6BF990250DB73D00C824D7 /* TestUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF98F250DB73D00C824D7 /* TestUtilities.swift */; };
-		7D6BF992250DCF3500C824D7 /* ItunesNetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF991250DCF3500C824D7 /* ItunesNetworkAPI.swift */; };
+		7D6BF992250DCF3500C824D7 /* RemoteItunesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF991250DCF3500C824D7 /* RemoteItunesAPI.swift */; };
 		7D6BF994250DCF9300C824D7 /* ItunesNetworkAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF993250DCF9300C824D7 /* ItunesNetworkAPITests.swift */; };
 		7D6BF998250DD44A00C824D7 /* DecodableResultProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF997250DD44A00C824D7 /* DecodableResultProcessorTests.swift */; };
 		7D6BF9A0250DE09400C824D7 /* DecodableResultProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */; };
@@ -47,7 +47,7 @@
 		7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		7D6BF98B250DB5EB00C824D7 /* ItunesRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesRouterTests.swift; sourceTree = "<group>"; };
 		7D6BF98F250DB73D00C824D7 /* TestUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtilities.swift; sourceTree = "<group>"; };
-		7D6BF991250DCF3500C824D7 /* ItunesNetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesNetworkAPI.swift; sourceTree = "<group>"; };
+		7D6BF991250DCF3500C824D7 /* RemoteItunesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteItunesAPI.swift; sourceTree = "<group>"; };
 		7D6BF993250DCF9300C824D7 /* ItunesNetworkAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesNetworkAPITests.swift; sourceTree = "<group>"; };
 		7D6BF997250DD44A00C824D7 /* DecodableResultProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResultProcessorTests.swift; sourceTree = "<group>"; };
 		7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResultProcessor.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 				7D6BF980250C842A00C824D7 /* HTTPRouter.swift */,
 				7D6BF984250DA4D600C824D7 /* ItunesRouter.swift */,
 				7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */,
-				7D6BF991250DCF3500C824D7 /* ItunesNetworkAPI.swift */,
+				7D6BF991250DCF3500C824D7 /* RemoteItunesAPI.swift */,
 				7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */,
 				7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */,
 			);
@@ -245,7 +245,7 @@
 			files = (
 				7D6BF981250C842A00C824D7 /* HTTPRouter.swift in Sources */,
 				7D6BF9A0250DE09400C824D7 /* DecodableResultProcessor.swift in Sources */,
-				7D6BF992250DCF3500C824D7 /* ItunesNetworkAPI.swift in Sources */,
+				7D6BF992250DCF3500C824D7 /* RemoteItunesAPI.swift in Sources */,
 				7D6BF9AA250DF23000C824D7 /* DataResultProcessor.swift in Sources */,
 				7D6BF987250DA4EF00C824D7 /* NetworkingError.swift in Sources */,
 				7D6BF9AF250E810300C824D7 /* ItunesMonolith.swift in Sources */,
