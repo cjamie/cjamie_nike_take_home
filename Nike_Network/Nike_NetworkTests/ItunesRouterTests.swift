@@ -16,7 +16,7 @@ class ItunesRouterTests: XCTestCase {
         let sut = ITunesRouter.nikeDefault
         
         let expected = makeSUT(
-            countryOrRegion: "United States",
+            countryOrRegion: "us",
             mediaType: "apple-music",
             feedType: "top-albums",
             genre: "all",
@@ -25,6 +25,40 @@ class ItunesRouterTests: XCTestCase {
         )
         
         XCTAssertEqual(sut, expected)
+    }
+    
+    func test_itunesRouter_hasExpectedHTTPRouterProperties() {
+        
+//        let sut = ITunesRouter.nikeDefault
+            
+        let countryOrRegion = "us"
+        let mediaType = "mediaType"
+        let feedType = "feedType"
+        let genre = "genre"
+        let resultsLimit = anyInt()
+        let format = "format"
+        let allowExplicit = false
+        
+        let sut = makeSUT(
+            countryOrRegion: countryOrRegion,
+            mediaType: mediaType,
+            feedType: feedType,
+            genre: genre,
+            resultsLimit: resultsLimit,
+            format: format,
+            allowExplicit: false
+        )
+        
+        let expectedPath = "/api/v1/\(countryOrRegion)/\(mediaType)/\(feedType)/\(genre)/\(resultsLimit)/\(allowExplicit ? "explicit" : "non-explicit").\(format)"
+        XCTAssertEqual(sut.method, "GET")
+        XCTAssertEqual(sut.host, "rss.itunes.apple.com")
+        XCTAssertEqual(sut.scheme, "https")
+        
+        
+        XCTAssertEqual(sut.path, "/api/v1/us/\(mediaType)/\(feedType)/\(genre)/\(resultsLimit)/\(allowExplicit ? "explicit" : "non-explicit").\(format)")
+        
+        XCTAssert(sut.parameters.isEmpty)
+        XCTAssert(sut.additionalHttpHeaders.isEmpty)
     }
     
     //sample iPhone app that displays the top 100 albums across all genres using Apple’s RSS generator
@@ -40,7 +74,7 @@ class ItunesRouterTests: XCTestCase {
     ) -> ITunesRouter {
         // all inputted values can be in dictionaries
         return ITunesRouter(
-            countryOrRegionKey: countryOrRegion,
+            countryOrRegion: countryOrRegion,
             mediaType: mediaType,
             feedType: feedType,
             genre: genre,
@@ -49,92 +83,5 @@ class ItunesRouterTests: XCTestCase {
             allowExplicit: allowExplicit
         )
     }
-
-    // reason we are not using enum is because its bad choice
-    struct ITunesRouter: HTTPRouter, Equatable {
-        
-        static let nikeDefault = ITunesRouter(
-            countryOrRegionKey: Constants.unitedStates,
-            mediaType: Constants.appleMusic,
-            feedType: Constants.topAlbums,
-            genre: Constants.genreAll,
-            resultsLimit: Constants.resultsLimit,
-            format: Constants.json,
-            allowExplicit: true
-        )
-        
-        private let countryOrRegion: String
-        private let mediaType: String
-        private let feedType: String
-        private let genre: String
-        private let resultsLimit: Int
-        private let format: String
-        private let allowExplicit: Bool
-        
-        init(countryOrRegionKey: String, mediaType: String, feedType: String, genre: String, resultsLimit: Int, format: String, allowExplicit: Bool) {
-            self.countryOrRegion = Self.countriesDictionary[countryOrRegionKey] ?? ""
-            self.mediaType = mediaType
-            self.feedType = feedType
-            self.genre = genre
-            self.resultsLimit = resultsLimit
-            self.format = format
-            self.allowExplicit = allowExplicit
-        }
-        
-        
-        // MARK: - HTTPRouter
-        
-        var method: String {
-            return Constants.get
-        }
-        
-        var host: String {
-            return Constants.itunesHost
-        }
-        
-        var scheme: String {
-            return Constants.https
-        }
-        
-        var path: String {
-            
-            let explicitString = allowExplicit ? "explicit" : "non-explicit"
-            
-            return "/api/v1/\(countryOrRegion)/\(mediaType)/\(feedType)/\(genre)/\(resultsLimit)/\(explicitString).json"
-            
-        }
-        
-        var parameters: [String : String] {
-            return [:]
-        }
-        
-        var additionalHttpHeaders: [String : String] {
-            return [:]
-        }
-
-        // MARK: - Helpers
-        
-        private enum Constants {
-            static let get = "GET"
-            static let https = "https"
-            static let itunesHost = "rss.itunes.apple.com"
-            static let unitedStates = "United States"
-            static let appleMusic = "apple-music"
-            static let topAlbums = "top-albums"
-            static let genreAll = "all"
-            static let resultsLimit = 100
-            static let json = "json"
-        }
-        
-        // NOTE: - this is incomplete
-        private static let countriesDictionary: [String: String] = [
-            "Albania": "al",
-            "Algeria": "dz",
-            "Angola": "ao",
-            "United States": "us",
-        ]
-        
-    }
-    
 }
 
