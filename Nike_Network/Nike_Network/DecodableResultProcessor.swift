@@ -30,8 +30,8 @@ struct DecodableResultProcessor<T: Decodable> {
         case .success(let data):
             
             do {
-                let instance = try decoder.decode(T.self, from: data)
-                return .success(instance)
+                let successfullyDecodedInstance = try decoder.decode(T.self, from: data)
+                return .success(successfullyDecodedInstance)
             } catch {
                 return .failure(NetworkingError.jsonDecoding(error))
             }

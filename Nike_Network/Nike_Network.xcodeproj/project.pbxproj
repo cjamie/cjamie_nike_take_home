@@ -21,6 +21,8 @@
 		7D6BF9A0250DE09400C824D7 /* DecodableResultProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */; };
 		7D6BF9A4250DE21900C824D7 /* DataResultProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */; };
 		7D6BF9AA250DF23000C824D7 /* DataResultProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */; };
+		7D6BF9AC250E79FC00C824D7 /* NetworkingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9AB250E79FC00C824D7 /* NetworkingErrorTests.swift */; };
+		7D6BF9AF250E810300C824D7 /* ItunesMonolith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResultProcessor.swift; sourceTree = "<group>"; };
 		7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResultProcessorTests.swift; sourceTree = "<group>"; };
 		7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResultProcessor.swift; sourceTree = "<group>"; };
+		7D6BF9AB250E79FC00C824D7 /* NetworkingErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingErrorTests.swift; sourceTree = "<group>"; };
+		7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesMonolith.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +97,7 @@
 		7D6BF953250C822300C824D7 /* Nike_Network */ = {
 			isa = PBXGroup;
 			children = (
+				7D6BF9AD250E7F1200C824D7 /* POJOs */,
 				7D6BF954250C822300C824D7 /* Nike_Network.h */,
 				7D6BF955250C822300C824D7 /* Info.plist */,
 				7D6BF980250C842A00C824D7 /* HTTPRouter.swift */,
@@ -115,8 +120,17 @@
 				7D6BF993250DCF9300C824D7 /* ItunesNetworkAPITests.swift */,
 				7D6BF997250DD44A00C824D7 /* DecodableResultProcessorTests.swift */,
 				7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */,
+				7D6BF9AB250E79FC00C824D7 /* NetworkingErrorTests.swift */,
 			);
 			path = Nike_NetworkTests;
+			sourceTree = "<group>";
+		};
+		7D6BF9AD250E7F1200C824D7 /* POJOs */ = {
+			isa = PBXGroup;
+			children = (
+				7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */,
+			);
+			path = POJOs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +248,7 @@
 				7D6BF992250DCF3500C824D7 /* ItunesNetworkAPI.swift in Sources */,
 				7D6BF9AA250DF23000C824D7 /* DataResultProcessor.swift in Sources */,
 				7D6BF987250DA4EF00C824D7 /* NetworkingError.swift in Sources */,
+				7D6BF9AF250E810300C824D7 /* ItunesMonolith.swift in Sources */,
 				7D6BF985250DA4D600C824D7 /* ItunesRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +261,7 @@
 				7D6BF998250DD44A00C824D7 /* DecodableResultProcessorTests.swift in Sources */,
 				7D6BF994250DCF9300C824D7 /* ItunesNetworkAPITests.swift in Sources */,
 				7D6BF9A4250DE21900C824D7 /* DataResultProcessorTests.swift in Sources */,
+				7D6BF9AC250E79FC00C824D7 /* NetworkingErrorTests.swift in Sources */,
 				7D6BF98C250DB5EB00C824D7 /* ItunesRouterTests.swift in Sources */,
 				7D6BF983250D390F00C824D7 /* HttpRouterTests.swift in Sources */,
 			);

@@ -25,8 +25,10 @@ class HttpRouterTests: XCTestCase {
     
     func test_validSUT_withOneParameter_doesProduceURLWithQueryItems() {
         // GIVEN
-        let sut = makeSUT(parameters: [anyString(): anyStringWithoutSpaces()])
-        let expected = URL(string: "https://google.com/images?\(anyString())=\(anyStringWithoutSpaces())")
+        let parameterHeader1 = anyRandomNonEmptyString()
+        
+        let sut = makeSUT(parameters: [parameterHeader1: anyStringWithoutSpaces()])
+        let expected = URL(string: "https://google.com/images?\(parameterHeader1)=\(anyStringWithoutSpaces())")
 
         // WHEN
         let actual: URL? = try? sut.baseURL()

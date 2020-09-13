@@ -17,6 +17,12 @@ class ViewController: UIViewController {
         print("-=- vdl")
         
         view.backgroundColor = .yellow
+        
+        
+//        FakeAPI.fetch { welcome in
+//            print("-=- testing \(welcome)")
+//        }
+//        
     }
 
 
