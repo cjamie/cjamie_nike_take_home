@@ -20,6 +20,10 @@ func anyString() -> String{
     "anyString"
 }
 
+func anyInt() -> Int {
+    return 839249
+}
+
 func anyHost() -> String {
     "anyHost"
 }
