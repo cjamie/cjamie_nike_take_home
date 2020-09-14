@@ -74,16 +74,13 @@ final class HomeCell: UITableViewCell {
                 
                 URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
                     guard let self = self else {
-                        print("-=- 0")
                         return
                     }
                     guard let data = data, let image = UIImage(data: data) else {
-                        print("-=- 1")
                         return
                     }
                     
                     guard let cachedURL = self._imageURL, cachedURL == imageURL else {
-                        print("-=- 2")
                         return
                     }
                     

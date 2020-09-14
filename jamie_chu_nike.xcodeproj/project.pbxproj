@@ -70,8 +70,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7D0E5FCA250F0A5D0003A8C2 /* AppTestUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTestUtilities.swift; sourceTree = "<group>"; };
-		7D0E5FCC250F111E0003A8C2 /* BoxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxTests.swift; sourceTree = "<group>"; };
 		7D0E5FD7250F23BC0003A8C2 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		7D6BF7CD250C765700C824D7 /* jamie_chu_nike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jamie_chu_nike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6BF7D0250C765800C824D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,8 +78,6 @@
 		7D6BF7D9250C765800C824D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D6BF7DC250C765800C824D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D6BF7DE250C765800C824D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D6BF7E7250C765900C824D7 /* jamie_chu_nikeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jamie_chu_nikeTests.swift; sourceTree = "<group>"; };
-		7D6BF7E9250C765900C824D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D6BF96B250C823E00C824D7 /* Nike_Network.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nike_Network.xcodeproj; path = Nike_Network/Nike_Network.xcodeproj; sourceTree = "<group>"; };
 		7D6BF975250C825600C824D7 /* Nike_Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nike_Network.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nike_Network-gsqzuzrkwkcagnfltknibenrzaly/Build/Products/Debug-iphoneos/Nike_Network.framework"; sourceTree = "<group>"; };
 		7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellViewModel.swift; sourceTree = "<group>"; };
@@ -126,7 +122,6 @@
 			children = (
 				7D6BF96B250C823E00C824D7 /* Nike_Network.xcodeproj */,
 				7D6BF7CF250C765800C824D7 /* jamie_chu_nike */,
-				7D6BF7E6250C765900C824D7 /* jamie_chu_nikeTests */,
 				7DEBD64D250F274000A247CA /* second_jamie_chu_nikeTests */,
 				7D6BF7CE250C765700C824D7 /* Products */,
 				7D6BF974250C825500C824D7 /* Frameworks */,
@@ -157,17 +152,6 @@
 				7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */,
 			);
 			path = jamie_chu_nike;
-			sourceTree = "<group>";
-		};
-		7D6BF7E6250C765900C824D7 /* jamie_chu_nikeTests */ = {
-			isa = PBXGroup;
-			children = (
-				7D6BF7E7250C765900C824D7 /* jamie_chu_nikeTests.swift */,
-				7D6BF7E9250C765900C824D7 /* Info.plist */,
-				7D0E5FCA250F0A5D0003A8C2 /* AppTestUtilities.swift */,
-				7D0E5FCC250F111E0003A8C2 /* BoxTests.swift */,
-			);
-			path = jamie_chu_nikeTests;
 			sourceTree = "<group>";
 		};
 		7D6BF96C250C823E00C824D7 /* Products */ = {

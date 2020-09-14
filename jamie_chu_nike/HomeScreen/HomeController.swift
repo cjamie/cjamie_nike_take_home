@@ -30,7 +30,6 @@ final class HomeController: UIViewController {
     
     private lazy var albumTableView: UITableView = {
         let tableview = UITableView()
-        print("-=- setting delegate \(self.viewModel)")
         tableview.dataSource = self.viewModel
         tableview.delegate = self.viewModel
         tableview.backgroundColor = .blue
@@ -48,12 +47,13 @@ final class HomeController: UIViewController {
         view.backgroundColor = .yellow
         setupView()
         
-        print("-=- did load")
-        viewModel.albumCellModels.bind { [weak self] values in
-            print("-=- bind \(values.count)")
-            self?.albumTableView.reloadData() }
+        viewModel.albumCellModels.bind { [weak self] _ in
+            self?.albumTableView.reloadData()
+        }
         viewModel.start()
     }
+    
+    // MARK: - Init
     
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel

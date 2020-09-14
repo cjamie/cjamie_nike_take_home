@@ -12,7 +12,6 @@ import UIKit
 extension HomeViewModel: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("-=- the count")
         return albumCellModels.value.count
     }
     
@@ -30,9 +29,7 @@ extension HomeViewModel: UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("-=- did select ")
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {        
         guard let viewModel = albumInfoViewModel(at: indexPath.row) else { return }
         delegate?.homeViewModel(self, didSelectRowWith: viewModel)
     }

@@ -44,6 +44,25 @@ class HomeViewModelTests: XCTestCase {
         XCTAssert(spy._errorsCache.count == 1)
     }
     
+    func test_albumInfoViewModelMethod_afterSuccessfulFetch_doesReturnAppropriateViewModel() {
+        // GIVEN
+        let (sut, spy) = makeSUT(isSuccessful: false)
+        
+        // WHEN
+        sut.start()
+        
+        // THEM
+        let maxCount = sut.albumCellModels.value.count
+        
+        let albumModels: [AlbumInfoViewModel] = (0..<maxCount).compactMap {
+            sut.albumInfoViewModel(at: $0)
+        }
+        
+        XCTAssertEqual(maxCount, albumModels.count)
+
+        
+    }
+    
     // MARK: - Helpers
         
     private func makeSUT(isSuccessful: Bool = true) -> (HomeViewModel, HomeViewModelDelegateSpy) {
