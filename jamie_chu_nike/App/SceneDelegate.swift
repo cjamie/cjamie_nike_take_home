@@ -25,10 +25,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let root = UINavigationController(rootViewController: controller)
         let appCoordinator = AppCoordinator(navigationController: root, window: myWindow)
 
+        self.appCoordinator = appCoordinator
+        
         controller.coordinatorDelegate = appCoordinator
         viewModel.delegate = controller
         appCoordinator.start()
     }
+    
+    private var appCoordinator: AppCoordinator?
     
 }
 
@@ -68,8 +72,30 @@ extension AppCoordinator: HomeControllerCoordinationDelegate {
     }
     
     func homeController(_ controller: HomeController, didSelectViewModel viewModel: AlbumInfoViewModel) {
-        let infoController = AlbumInfoViewController(viewModel: viewModel, coordinator: self)
+        let infoController = AlbumInfoViewController(viewModel: viewModel, coordinationDelegate: self)
         navigationController.pushViewController(infoController, animated: true)
     }
+    
+}
+
+
+extension AppCoordinator: AlbumInfoCoordinationDelegate {
+    func albumInfoViewController(_ controller: AlbumInfoViewController, didTapAlbumButtonWith url: URL) {
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            let alert = UIAlertController(
+                title: "Failed to go to URL",
+                message: ":(",
+                preferredStyle: .alert
+            )
+            
+            alert.addAction(.init(title: "OK", style: .cancel, handler: nil))
+            controller.present(alert, animated: true, completion: nil)
+
+        }
+    }
+    
     
 }

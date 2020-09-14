@@ -97,7 +97,7 @@ final class HomeCell: UITableViewCell {
         }
     }
     
-    var _imageURL: URL?
+    private var _imageURL: URL?
     
     override func prepareForReuse() {
         super.prepareForReuse()

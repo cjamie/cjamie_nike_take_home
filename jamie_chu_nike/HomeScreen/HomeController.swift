@@ -9,7 +9,7 @@
 import UIKit
 import Nike_Network
 
-protocol HomeControllerCoordinationDelegate {
+protocol HomeControllerCoordinationDelegate: class {
     func homeController(_ controller: HomeController, didSelectViewModel: AlbumInfoViewModel)
     func homeController(_ controller: HomeController, fetchingDidFailWith error: Error)
 }
@@ -17,9 +17,7 @@ protocol HomeControllerCoordinationDelegate {
 final class HomeController: UIViewController {
 
     private let viewModel: HomeViewModel
-
-    // NOTE: - Set via Property injection
-    var coordinatorDelegate: HomeControllerCoordinationDelegate?
+    weak var coordinatorDelegate: HomeControllerCoordinationDelegate?
     
     private let jamiesPretentiousLabel: UILabel = {
         let label = UILabel()

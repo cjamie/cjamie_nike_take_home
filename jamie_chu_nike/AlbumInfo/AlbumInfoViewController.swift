@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: - move to separate file
 protocol AlbumInfoViewModel {
     var nameOfAlbum: Box<String> { get }
     var artist: Box<String> { get }
@@ -30,9 +31,13 @@ struct AlbumInfoViewModelImpl: AlbumInfoViewModel {
     let albumURL: URL
 }
 
+protocol AlbumInfoCoordinationDelegate: class {
+    func albumInfoViewController(_ controller: AlbumInfoViewController, didTapAlbumButtonWith url: URL)
+}
+
 final class AlbumInfoViewController: UIViewController {
     private let viewModel: AlbumInfoViewModel
-    private let coordinator: Coordinator
+    private weak var coordinationDelegate: AlbumInfoCoordinationDelegate?
     
     private let mainScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -155,22 +160,15 @@ final class AlbumInfoViewController: UIViewController {
     }
     
     @objc private func didTapAlbumButton(_ sender: UIButton) {
-        // TODO: - move to the coordinator
-        
-        // To open this on
-        guard UIApplication.shared.canOpenURL(viewModel.albumURL) else {
-            // TODO: - tell user we cannot open this
-            return
-        }
-        UIApplication.shared.open(viewModel.albumURL, options: [:], completionHandler: nil)
+        coordinationDelegate?.albumInfoViewController(self, didTapAlbumButtonWith: viewModel.albumURL)
     }
     
     
     // MARK: - Init
     
-    init(viewModel: AlbumInfoViewModel, coordinator: Coordinator) {
+    init(viewModel: AlbumInfoViewModel, coordinationDelegate: AlbumInfoCoordinationDelegate) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
+        self.coordinationDelegate = coordinationDelegate
         super.init(nibName: nil, bundle: nil)
     }
 
