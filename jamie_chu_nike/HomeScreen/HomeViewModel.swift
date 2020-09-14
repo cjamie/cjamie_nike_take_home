@@ -68,7 +68,8 @@ final class HomeViewModel: NSObject {
             genre: .init("Genre: \(genreNames)"),
             releaseDate: .init("ReleaseDate: \(album.releaseDate)"),
             copyrightDescription: .init("CopyrightDescription: \(album.copyright ?? "")"),
-            imageDataCache: imageDataCache
+            imageDataCache: imageDataCache,
+            albumURL: album.url
         )
     }
 }

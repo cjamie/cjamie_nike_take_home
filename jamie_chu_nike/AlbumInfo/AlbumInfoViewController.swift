@@ -16,7 +16,7 @@ protocol AlbumInfoViewModel {
     var releaseDate: Box<String> { get }
     var copyrightDescription: Box<String> { get }
     var imageDataCache: NSCache<NSString, NSData> { get }
-
+    var albumURL: URL { get }
 }
 
 struct AlbumInfoViewModelImpl: AlbumInfoViewModel {
@@ -27,6 +27,7 @@ struct AlbumInfoViewModelImpl: AlbumInfoViewModel {
     let releaseDate: Box<String>
     let copyrightDescription: Box<String>
     let imageDataCache: NSCache<NSString, NSData>
+    let albumURL: URL
 }
 
 final class AlbumInfoViewController: UIViewController {
@@ -115,6 +116,7 @@ final class AlbumInfoViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Tap fast!", for: .normal)
         button.backgroundColor = .brown
+        button.addTarget(self, action: #selector(didTapAlbumButton), for: .touchUpInside)
         return button
     }()
     
@@ -152,6 +154,18 @@ final class AlbumInfoViewController: UIViewController {
         
     }
     
+    @objc private func didTapAlbumButton(_ sender: UIButton) {
+        // TODO: - move to the coordinator
+        
+        // To open this on
+        guard UIApplication.shared.canOpenURL(viewModel.albumURL) else {
+            // TODO: - tell user we cannot open this
+            return
+        }
+        UIApplication.shared.open(viewModel.albumURL, options: [:], completionHandler: nil)
+    }
+    
+    
     // MARK: - Init
     
     init(viewModel: AlbumInfoViewModel, coordinator: Coordinator) {
@@ -164,6 +178,8 @@ final class AlbumInfoViewController: UIViewController {
         fatalError("Storyboard are a pain")
     }
 
+    // MARK: - Helpers
+    
     private func setupViews() {
         
         infoStackView.addArrangedSubviews([albumNameLabel, artistNameLabel, albumThumbnailImageView, genreLabel, releaseDateLabel, copyrightLabel])
