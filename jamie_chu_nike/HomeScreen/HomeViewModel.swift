@@ -58,7 +58,8 @@ final class HomeViewModel: NSObject {
     func albumInfoViewModel(at row: Int) -> AlbumInfoViewModel? {
         guard let rawModels = _rawModels.last else { return nil }
         
-        let album = rawModels.feed.results[row]
+        guard let album = rawModels.feed.results[safeIndex: row] else { return nil }
+        
         let genreNames: String = album.genres.map { $0.name }.joined(separator: ", ")
 
         return AlbumInfoViewModelImpl(

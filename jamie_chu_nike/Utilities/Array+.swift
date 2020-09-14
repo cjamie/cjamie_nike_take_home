@@ -11,9 +11,9 @@ import Foundation
 // TODO: - make array access safe
 // MARK: - Attribution: - https://www.hackingwithswift.com/example-code/language/how-to-make-array-access-safer-using-a-custom-subscript
 extension Array {
-    public subscript(index: Int, default defaultValue: @autoclosure () -> Element) -> Element {
+    public subscript(safeIndex index: Int) -> Element? {
         guard index >= 0, index < endIndex else {
-            return defaultValue()
+            return nil
         }
 
         return self[index]
