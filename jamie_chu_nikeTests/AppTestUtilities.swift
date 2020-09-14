@@ -15,3 +15,7 @@ private enum MyError: Error {
 func anySwiftError() -> Error {
     return MyError.first
 }
+
+func anyIntArray() -> [Int] {
+    return (0..<5).map { _ in .random(in: 1...20) }
+}

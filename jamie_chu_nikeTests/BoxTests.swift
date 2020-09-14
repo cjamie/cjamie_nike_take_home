@@ -10,30 +10,62 @@ import Foundation
 import XCTest
 
 class BoxTests: XCTestCase {
-    
-    func test_cellModelBinding() {
-        let myBox: Box<[AlbumCellViewModel]> = Box([])
         
-        let model = FakeCellModelListener(box: myBox)
-        XCTAssert(model._capturedClosures.isEmpty)
-        model.bind()
-        XCTAssert(model._capturedClosures.count == 1)
+    func test_bindCall_invokesListenerOnce() {
+        // GIVEN
+        let (_, spy) = makeSUT()
+        var capturedArrays: [[Int]] = []
+        
+        XCTAssertEqual(capturedArrays, [])
+
+        spy.bind { capturedArrays.append($0) }
+        
+        
+        // WHEN
+        
+        //THEN
+        XCTAssertEqual(capturedArrays, [[]])
     }
     
-    class FakeCellModelListener {
-        private let boxToListenTo: Box<[AlbumCellViewModel]>
+    func test_valueChanges_invokesListener_whenChanged_ifAListenerIsSet() {
+        // GIVEN
+        let (sut, spy) = makeSUT()
+        var capturedArrays: [[Int]] = []
+        spy.bind { capturedArrays.append($0) }
+        XCTAssertEqual(capturedArrays, [[]])
+
         
-        var _capturedClosures: [([AlbumCellViewModel])->Void] = []
+        // WHEN
+        let newArrayValue = anyIntArray()
+        sut.value = newArrayValue
         
-        init(box: Box<[AlbumCellViewModel]>) {
+        //THEN
+        XCTAssertEqual(capturedArrays, [[],newArrayValue])
+        
+    }
+    
+    // MARK: - Helpers
+    
+    private func makeSUT() -> (Box<[Int]>, BoxListenerSpy){
+        let sut: Box<[Int]> = Box([])
+        let spy = BoxListenerSpy(box: sut)
+        return (sut, spy)
+    }
+    
+    private typealias IntArrayClosure = ([Int]) -> Void
+    
+    private class BoxListenerSpy {
+        private let boxToListenTo: Box<[Int]>
+        
+        init(box: Box<[Int]>) {
             self.boxToListenTo = box
         }
         
-        func bind() {
-            boxToListenTo.bind { models in
-                self._capturedClosures.append { models in }
+        func bind(input: @escaping IntArrayClosure) {
+            boxToListenTo.bind { boxCurrentValue in
+                input(boxCurrentValue)
             }
-        }
+        }        
     }
 
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: separate file for each model
 
 public struct ItunesMonolith: Codable, Equatable {
     public let feed: Feed
