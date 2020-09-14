@@ -50,6 +50,7 @@ final class HomeCell: UITableViewCell {
         return imageView
     }()
     
+    
     // MARK: - Public API
 
     func bind(model: AlbumCellViewModel) {
@@ -65,8 +66,43 @@ final class HomeCell: UITableViewCell {
         
         model.thumbnailImage.bind { imageURL in
             // TODO: - fetcher.fetch(imageURL) or something like there here (also need to resolve tableview issues with images)
+            
+            if let imageDataFromCache = model.imageDataCache.object(forKey: NSString(string: imageURL.absoluteString)) as Data? {
+                self.albumThumbnailImageView.image = UIImage(data: imageDataFromCache)
+            } else {
+                self._imageURL = imageURL
+                
+                URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
+                    guard let self = self else {
+                        print("-=- 0")
+                        return
+                    }
+                    guard let data = data, let image = UIImage(data: data) else {
+                        print("-=- 1")
+                        return
+                    }
+                    
+                    guard let cachedURL = self._imageURL, cachedURL == imageURL else {
+                        print("-=- 2")
+                        return
+                    }
+                    
+                    model.imageDataCache.setObject(NSData(data: data), forKey: NSString(string: imageURL.absoluteString))
                         
+                    DispatchQueue.main.async {
+                        self.albumThumbnailImageView.image = image
+                    }
+                }.resume()
+            }
         }
+    }
+    
+    var _imageURL: URL?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        albumThumbnailImageView.image = nil
     }
     
     // MARK: - Init

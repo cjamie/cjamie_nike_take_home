@@ -15,17 +15,21 @@ protocol AlbumCellViewModel {
     var nameOfAlbum: Box<String> { get }
     var artist: Box<String> { get }
     var thumbnailImage: Box<URL> { get }
+    var imageDataCache: NSCache<NSString, NSData> { get }
 }
 
 struct AlbumCellViewModelImpl: AlbumCellViewModel {
+    
     let nameOfAlbum: Box<String>
     let artist: Box<String>
     let thumbnailImage: Box<URL>
-    
-    init(nameOfAlbum: String, artist: String, thumbnailImage: URL) {
+    let imageDataCache: NSCache<NSString, NSData>
+
+    init(nameOfAlbum: String, artist: String, thumbnailImage: URL, imageDataCache: NSCache<NSString, NSData>) {
         self.nameOfAlbum = Box(nameOfAlbum)
         self.artist = Box(artist)
         self.thumbnailImage = Box(thumbnailImage)
+        self.imageDataCache = imageDataCache
     }
 }
 
@@ -38,3 +42,4 @@ struct AlbumCellViewModelImpl: AlbumCellViewModel {
 //    var releaseDate: Box<Date> { get }
 //    var copyrightDescription: Box<String> { get }
 //}
+//NSCache<NSString, NSData>()

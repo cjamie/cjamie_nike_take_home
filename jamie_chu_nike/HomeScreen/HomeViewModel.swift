@@ -19,7 +19,8 @@ final class HomeViewModel: NSObject {
     // MARK: - Private API
     
     private let recordsfetcher: ItunesRecordFetcher
-    private var _rawModels: ItunesMonolith?
+    private var _rawModels: [ItunesMonolith] = []
+    private let imageDataCache = NSCache<NSString, NSData>()
     // MARK: - Init
     
     init(recordsfetcher: ItunesRecordFetcher) {
@@ -43,29 +44,31 @@ final class HomeViewModel: NSObject {
                     AlbumCellViewModelImpl(
                         nameOfAlbum: "Album: \($0.name)",
                         artist: "Artist: \($0.artistName)",
-                        thumbnailImage: $0.artistURL
+                        thumbnailImage: $0.artworkUrl100,
+                        imageDataCache: self.imageDataCache
                     )
                 }
                 
                 self.albumCellModels.value = cellModels
-                self._rawModels = rawModel
+                self._rawModels.append(rawModel)
             }
         }
     }
     
     func albumInfoViewModel(at row: Int) -> AlbumInfoViewModel? {
-        guard let rawModels = _rawModels else { return nil }
+        guard let rawModels = _rawModels.last else { return nil }
         
         let album = rawModels.feed.results[row]
-        let genreNames: [String] = album.genres.map { $0.name }
+        let genreNames: String = album.genres.map { $0.name }.joined(separator: ", ")
 
         return AlbumInfoViewModelImpl(
-            nameOfAlbum: .init(album.name),
-            artist: .init(album.artistName),
+            nameOfAlbum: .init("AameOfAlbum: \(album.name)"),
+            artist: .init("Artist: \(album.artistName)"),
             thumbnailImage: .init(album.artworkUrl100),
-            genre: .init(genreNames),
-            releaseDate: .init(album.releaseDate),
-            copyrightDescription: .init(album.releaseDate)
+            genre: .init("Genre: \(genreNames)"),
+            releaseDate: .init("ReleaseDate: \(album.releaseDate)"),
+            copyrightDescription: .init("CopyrightDescription: \(album.copyright ?? "")"),
+            imageDataCache: imageDataCache
         )
     }
 }
