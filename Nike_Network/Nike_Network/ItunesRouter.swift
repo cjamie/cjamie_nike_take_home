@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ITunesRouter: HTTPRouter, Equatable, URLRequestConvertible {
+public struct ITunesRouter: URLRequestableHTTPRouter, Equatable {
     
     public static let nikeDefault = ITunesRouter(
         countryOrRegion: Constants.unitedStates,

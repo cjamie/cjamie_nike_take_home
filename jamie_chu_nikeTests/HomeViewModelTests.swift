@@ -10,38 +10,71 @@ import XCTest
 import Nike_Network
 
 class HomeViewModelTests: XCTestCase {
-
     
-    func test_init_hasEmptyAlbumCellViewModel(){
+    func test_init_hasEmptyAlbumCellViewModel() {
+        // GIVEN
         let (sut, _) = makeSUT()
-        
+        //THEN
         XCTAssert(sut.albumCellModels.value.isEmpty)
     }
     
     
+    func test_startOnce_invokesFetcherOnce_returnsModelsOnSuccess() {
+        // GIVEN
+        let (sut, _) = makeSUT()
+        XCTAssert(sut.albumCellModels.value.isEmpty)
+        
+        // WHEN
+        sut.start()
+        
+        // THEN
+        XCTAssert(!sut.albumCellModels.value.isEmpty)
+        
+    }
+    
+    func test_startOnce_withUnsuccessfulBlockCalled_callsDelegatesErrorMethodOnce() {
+        // GIVEN
+        let (sut, spy) = makeSUT(isSuccessful: false)
+        XCTAssert(sut.albumCellModels.value.isEmpty)
+
+        sut.start()
+        
+        XCTAssert(spy._errorsCache.count == 1)
+    }
     
     // MARK: - Helpers
         
-    private func makeSUT() -> (HomeViewModel, HomeViewModelDelegateSpy) {
+    private func makeSUT(isSuccessful: Bool = true) -> (HomeViewModel, HomeViewModelDelegateSpy) {
         let someDelegate = HomeViewModelDelegateSpy()
-        return (HomeViewModel(recordsfetcher: FakeFetcher(), delegate: someDelegate), someDelegate)
+        return (
+            HomeViewModel(
+                recordsfetcher: FakeFetcher(isSuccessful: isSuccessful),
+                delegate: someDelegate
+            ),
+            someDelegate
+        )
     }
-    
+        
     private class HomeViewModelDelegateSpy: HomeViewModelDelegate {
-        private var errors: [Error] = []
+        private(set) var _errorsCache: [Error] = []
         
         // MARK: - HomeViewModelDelegate
         func homeViewModel(_ homeModel: HomeViewModel, fetchingDidFailWith error: Error) {
-            
+            _errorsCache.append(error)
         }
     }
     
     private struct FakeFetcher: ItunesRecordFetcher {
         
+        let isSuccessful: Bool
+        
         func fetchDefaultRaw(router: URLRequestableHTTPRouter, completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
-            
-            completion( .success(mockMonolith()) )
-            
+
+            let returnValue: Result<ItunesMonolith, Error> = isSuccessful
+                ? .success(mockMonolith())
+                : .failure(anySwiftError())
+
+            completion(returnValue)
         }
         
         private func mockMonolith() -> ItunesMonolith  {
@@ -67,14 +100,20 @@ protocol HomeViewModelDelegate: class {
 
 final class HomeViewModel {
     
+    // MARK: - Private API
     private let recordsfetcher: ItunesRecordFetcher
-    private(set) var albumCellModels: Box<[AlbumCellViewModel]> = Box([])
     private weak var delegate: HomeViewModelDelegate?
+    
+    // MARK: - Init
     
     init(recordsfetcher: ItunesRecordFetcher, delegate: HomeViewModelDelegate) {
         self.recordsfetcher = recordsfetcher
+        self.delegate = delegate
     }
-    
+
+    // MARK: - Public API
+    private(set) var albumCellModels: Box<[AlbumCellViewModel]> = Box([])
+
     func start() {
         recordsfetcher.fetchDefaultRaw(router: ITunesRouter.nikeDefault) { [weak self] result in
             guard let self = self else { return }
@@ -82,24 +121,37 @@ final class HomeViewModel {
             case .failure(let error):
                 self.delegate?.homeViewModel(self, fetchingDidFailWith: error)
             case .success(let rawModel):
-                print("-=- raw model has been obtained. can create view models here ")
+                let cellModels = rawModel.feed.results.map {
+                    AlbumCellViewModelImpl(
+                        nameOfAlbum: $0.artistID,
+                        artist: $0.artistName,
+                        thumbnailImage: $0.artistURL
+                    )
+                }
+                
+                self.albumCellModels.value = cellModels
             }
         }
     }
-    
 }
 
 //    Each cell should display the name of the album, the artist, and the album art (thumbnail image).
 protocol AlbumCellViewModel {
-    var nameOfAlbum: String { get }
-    var artist: String { get }
-    var thumbnailImage: URL { get }
+    var nameOfAlbum: Box<String> { get }
+    var artist: Box<String> { get }
+    var thumbnailImage: Box<URL> { get }
 }
 
 struct AlbumCellViewModelImpl: AlbumCellViewModel {
-    let nameOfAlbum: String
-    let artist: String
-    let thumbnailImage: URL
+    let nameOfAlbum: Box<String>
+    let artist: Box<String>
+    let thumbnailImage: Box<URL>
+    
+    init(nameOfAlbum: String, artist: String, thumbnailImage: URL) {
+        self.nameOfAlbum = Box(nameOfAlbum)
+        self.artist = Box(artist)
+        self.thumbnailImage = Box(thumbnailImage)
+    }
 }
 
 final class Box<T> {

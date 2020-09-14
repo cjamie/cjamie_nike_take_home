@@ -18,22 +18,11 @@ public class RemoteItunesAPI: ItunesRecordFetcher {
     
     private let session: URLSession
     
+    // MARK: - Init
+    
     public init(session: URLSession = .shared) {
         self.session = session
     }
-    
-    private static let nikeDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return formatter
-    }()
-    
-    private static let nikeItunesJsonDecoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(nikeDateFormatter)
-        return decoder
-    }()
     
     // MARK: - ItunesRecordFetcher
     
@@ -53,7 +42,22 @@ public class RemoteItunesAPI: ItunesRecordFetcher {
             completion(.failure(error))
         }
     }
-            
+    
+    // MARK: - Helpers
+    
+    private static let nikeDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return formatter
+    }()
+    
+    private static let nikeItunesJsonDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(nikeDateFormatter)
+        return decoder
+    }()
+    
     private static func dispatch(block: @escaping ()-> Void) {
         DispatchQueue.main.async(execute: block)
     }
