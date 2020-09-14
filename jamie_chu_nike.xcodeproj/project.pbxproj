@@ -16,6 +16,13 @@
 		7D6BF976250C825600C824D7 /* Nike_Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6BF975250C825600C824D7 /* Nike_Network.framework */; };
 		7D6BF97C250C830C00C824D7 /* Nike_Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6BF971250C823E00C824D7 /* Nike_Network.framework */; };
 		7D6BF97D250C830C00C824D7 /* Nike_Network.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D6BF971250C823E00C824D7 /* Nike_Network.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D927A36250F2D0400D0CBC0 /* AlbumCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */; };
+		7D927A3A250F2D4600D0CBC0 /* HomeViewModel+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A39250F2D4600D0CBC0 /* HomeViewModel+UITableViewDelegate.swift */; };
+		7D927A3D250F2DB500D0CBC0 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A3C250F2DB500D0CBC0 /* HomeCell.swift */; };
+		7D927A40250F2DF700D0CBC0 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A3F250F2DF700D0CBC0 /* UIView+.swift */; };
+		7D927A42250F4A5500D0CBC0 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A41250F4A5500D0CBC0 /* UIStackView+.swift */; };
+		7D927A44250F4F6A00D0CBC0 /* AlbumInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A43250F4F6A00D0CBC0 /* AlbumInfoViewController.swift */; };
+		7D927A49250F53D200D0CBC0 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A48250F53D200D0CBC0 /* Array+.swift */; };
 		7DEBD645250F260000A247CA /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBD644250F260000A247CA /* Coordinator.swift */; };
 		7DEBD647250F266300A247CA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBD646250F266300A247CA /* HomeViewModel.swift */; };
 		7DEBD657250F280A00A247CA /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEBD656250F280A00A247CA /* HomeViewModelTests.swift */; };
@@ -76,6 +83,13 @@
 		7D6BF7E9250C765900C824D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D6BF96B250C823E00C824D7 /* Nike_Network.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nike_Network.xcodeproj; path = Nike_Network/Nike_Network.xcodeproj; sourceTree = "<group>"; };
 		7D6BF975250C825600C824D7 /* Nike_Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nike_Network.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nike_Network-gsqzuzrkwkcagnfltknibenrzaly/Build/Products/Debug-iphoneos/Nike_Network.framework"; sourceTree = "<group>"; };
+		7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellViewModel.swift; sourceTree = "<group>"; };
+		7D927A39250F2D4600D0CBC0 /* HomeViewModel+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewModel+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		7D927A3C250F2DB500D0CBC0 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
+		7D927A3F250F2DF700D0CBC0 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		7D927A41250F4A5500D0CBC0 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		7D927A43250F4F6A00D0CBC0 /* AlbumInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoViewController.swift; sourceTree = "<group>"; };
+		7D927A48250F53D200D0CBC0 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		7DEBD644250F260000A247CA /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		7DEBD646250F266300A247CA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		7DEBD64C250F274000A247CA /* second_jamie_chu_nikeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = second_jamie_chu_nikeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,15 +143,16 @@
 		7D6BF7CF250C765800C824D7 /* jamie_chu_nike */ = {
 			isa = PBXGroup;
 			children = (
-				7D6BF7D0250C765800C824D7 /* AppDelegate.swift */,
-				7DEBD646250F266300A247CA /* HomeViewModel.swift */,
-				7D6BF7D2250C765800C824D7 /* SceneDelegate.swift */,
-				7D6BF7D4250C765800C824D7 /* HomeController.swift */,
+				7D927A3E250F2DE900D0CBC0 /* Utilities */,
+				7DEBD65F250F2C2A00A247CA /* App */,
+				7D927A45250F4FA200D0CBC0 /* AlbumInfo */,
+				7DEBD65E250F2C0900A247CA /* HomeScreen */,
 				7DEBD644250F260000A247CA /* Coordinator.swift */,
 				7D6BF7D9250C765800C824D7 /* Assets.xcassets */,
 				7D6BF7DB250C765800C824D7 /* LaunchScreen.storyboard */,
 				7D6BF7DE250C765800C824D7 /* Info.plist */,
 				7D0E5FD7250F23BC0003A8C2 /* Box.swift */,
+				7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */,
 			);
 			path = jamie_chu_nike;
 			sourceTree = "<group>";
@@ -170,6 +185,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7D927A3B250F2DAD00D0CBC0 /* HomeCell */ = {
+			isa = PBXGroup;
+			children = (
+				7D927A3C250F2DB500D0CBC0 /* HomeCell.swift */,
+			);
+			path = HomeCell;
+			sourceTree = "<group>";
+		};
+		7D927A3E250F2DE900D0CBC0 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7D927A3F250F2DF700D0CBC0 /* UIView+.swift */,
+				7D927A41250F4A5500D0CBC0 /* UIStackView+.swift */,
+				7D927A48250F53D200D0CBC0 /* Array+.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		7D927A45250F4FA200D0CBC0 /* AlbumInfo */ = {
+			isa = PBXGroup;
+			children = (
+				7D927A43250F4F6A00D0CBC0 /* AlbumInfoViewController.swift */,
+			);
+			path = AlbumInfo;
+			sourceTree = "<group>";
+		};
 		7DEBD64D250F274000A247CA /* second_jamie_chu_nikeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +220,26 @@
 				7DEBD65A250F28AE00A247CA /* BoxTests.swift */,
 			);
 			path = second_jamie_chu_nikeTests;
+			sourceTree = "<group>";
+		};
+		7DEBD65E250F2C0900A247CA /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7D927A3B250F2DAD00D0CBC0 /* HomeCell */,
+				7D6BF7D4250C765800C824D7 /* HomeController.swift */,
+				7DEBD646250F266300A247CA /* HomeViewModel.swift */,
+				7D927A39250F2D4600D0CBC0 /* HomeViewModel+UITableViewDelegate.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		7DEBD65F250F2C2A00A247CA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7D6BF7D2250C765800C824D7 /* SceneDelegate.swift */,
+				7D6BF7D0250C765800C824D7 /* AppDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,11 +366,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D927A49250F53D200D0CBC0 /* Array+.swift in Sources */,
+				7D927A44250F4F6A00D0CBC0 /* AlbumInfoViewController.swift in Sources */,
+				7D927A36250F2D0400D0CBC0 /* AlbumCellViewModel.swift in Sources */,
 				7D6BF7D5250C765800C824D7 /* HomeController.swift in Sources */,
 				7DEBD647250F266300A247CA /* HomeViewModel.swift in Sources */,
 				7D0E5FD8250F23BC0003A8C2 /* Box.swift in Sources */,
+				7D927A40250F2DF700D0CBC0 /* UIView+.swift in Sources */,
 				7DEBD645250F260000A247CA /* Coordinator.swift in Sources */,
 				7D6BF7D1250C765800C824D7 /* AppDelegate.swift in Sources */,
+				7D927A3A250F2D4600D0CBC0 /* HomeViewModel+UITableViewDelegate.swift in Sources */,
+				7D927A42250F4A5500D0CBC0 /* UIStackView+.swift in Sources */,
+				7D927A3D250F2DB500D0CBC0 /* HomeCell.swift in Sources */,
 				7D6BF7D3250C765800C824D7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

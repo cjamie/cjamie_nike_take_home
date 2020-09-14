@@ -11,23 +11,25 @@ import Nike_Network
 
 protocol HomeViewModelDelegate: class {
     func homeViewModel(_ homeModel: HomeViewModel, fetchingDidFailWith error: Error)
+    func homeViewModel(_ homeModel: HomeViewModel, didSelectRowWith viewModel: AlbumInfoViewModel)
 }
 
-final class HomeViewModel {
+final class HomeViewModel: NSObject {
     
     // MARK: - Private API
-    private let recordsfetcher: ItunesRecordFetcher
-    private weak var delegate: HomeViewModelDelegate?
     
+    private let recordsfetcher: ItunesRecordFetcher
+    private var _rawModels: ItunesMonolith?
     // MARK: - Init
     
-    init(recordsfetcher: ItunesRecordFetcher, delegate: HomeViewModelDelegate) {
+    init(recordsfetcher: ItunesRecordFetcher) {
         self.recordsfetcher = recordsfetcher
-        self.delegate = delegate
     }
 
     // MARK: - Public API
+    
     private(set) var albumCellModels: Box<[AlbumCellViewModel]> = Box([])
+    var delegate: HomeViewModelDelegate?
 
     func start() {
         recordsfetcher.fetchDefaultRaw(router: ITunesRouter.nikeDefault) { [weak self] result in
@@ -36,35 +38,34 @@ final class HomeViewModel {
             case .failure(let error):
                 self.delegate?.homeViewModel(self, fetchingDidFailWith: error)
             case .success(let rawModel):
+                // NOTE: - strings should be localized here
                 let cellModels = rawModel.feed.results.map {
                     AlbumCellViewModelImpl(
-                        nameOfAlbum: $0.artistID,
-                        artist: $0.artistName,
+                        nameOfAlbum: "Album: \($0.name)",
+                        artist: "Artist: \($0.artistName)",
                         thumbnailImage: $0.artistURL
                     )
                 }
                 
                 self.albumCellModels.value = cellModels
+                self._rawModels = rawModel
             }
         }
     }
-}
-
-//    Each cell should display the name of the album, the artist, and the album art (thumbnail image).
-protocol AlbumCellViewModel {
-    var nameOfAlbum: Box<String> { get }
-    var artist: Box<String> { get }
-    var thumbnailImage: Box<URL> { get }
-}
-
-struct AlbumCellViewModelImpl: AlbumCellViewModel {
-    let nameOfAlbum: Box<String>
-    let artist: Box<String>
-    let thumbnailImage: Box<URL>
     
-    init(nameOfAlbum: String, artist: String, thumbnailImage: URL) {
-        self.nameOfAlbum = Box(nameOfAlbum)
-        self.artist = Box(artist)
-        self.thumbnailImage = Box(thumbnailImage)
+    func albumInfoViewModel(at row: Int) -> AlbumInfoViewModel? {
+        guard let rawModels = _rawModels else { return nil }
+        
+        let album = rawModels.feed.results[row]
+        let genreNames: [String] = album.genres.map { $0.name }
+
+        return AlbumInfoViewModelImpl(
+            nameOfAlbum: .init(album.name),
+            artist: .init(album.artistName),
+            thumbnailImage: .init(album.artworkUrl100),
+            genre: .init(genreNames),
+            releaseDate: .init(album.releaseDate),
+            copyrightDescription: .init(album.releaseDate)
+        )
     }
 }

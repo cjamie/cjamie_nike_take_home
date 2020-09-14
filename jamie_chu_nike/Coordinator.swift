@@ -6,8 +6,17 @@
 //  Copyright © 2020 Jamie Chu. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-protocol Coordinator {
-    
+protocol Coordinator: AnyObject {
+    var children: [Coordinator] { get set }
+    var navigationController: UINavigationController { get }
+    func start()
+}
+
+extension Coordinator {
+    func appendAndStart(coordinator: Coordinator) {
+        children.append(coordinator)
+        coordinator.start()
+    }
 }

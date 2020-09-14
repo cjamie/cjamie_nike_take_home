@@ -48,22 +48,25 @@ class HomeViewModelTests: XCTestCase {
         
     private func makeSUT(isSuccessful: Bool = true) -> (HomeViewModel, HomeViewModelDelegateSpy) {
         let someDelegate = HomeViewModelDelegateSpy()
-        return (
-            HomeViewModel(
-                recordsfetcher: FakeFetcher(isSuccessful: isSuccessful),
-                delegate: someDelegate
-            ),
-            someDelegate
-        )
+        let viewModel = HomeViewModel(recordsfetcher: FakeFetcher(isSuccessful: isSuccessful))
+        viewModel.delegate = someDelegate
+        return (viewModel, someDelegate)
     }
         
     private class HomeViewModelDelegateSpy: HomeViewModelDelegate {
+        
         private(set) var _errorsCache: [Error] = []
         
         // MARK: - HomeViewModelDelegate
         func homeViewModel(_ homeModel: HomeViewModel, fetchingDidFailWith error: Error) {
             _errorsCache.append(error)
         }
+        
+        // TODO: - handle this case
+        func homeViewModel(_ homeModel: HomeViewModel, didSelectRowWith viewModel: AlbumInfoViewModel) {
+            
+        }
+
     }
     
     private struct FakeFetcher: ItunesRecordFetcher {

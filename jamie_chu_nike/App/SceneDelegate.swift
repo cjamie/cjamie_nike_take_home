@@ -19,9 +19,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // TODO: Coordinator, and viewModel
         
-//        window?.rootViewController = HomeController(fetcherAPI: RemoteItunesAPI())
+        window?.rootViewController = {
+            let viewModel = HomeViewModel(recordsfetcher: RemoteItunesAPI())
+            let controller = HomeController(viewModel: viewModel, coordinator: NANCoordinator())
+            let root = UINavigationController(rootViewController: controller)
+            viewModel.delegate = controller
+            return root
+        }()
+        
         window?.makeKeyAndVisible()
     }
 
 }
 
+// TODO: - create AppCoordinator
+class NANCoordinator: Coordinator {
+    var children: [Coordinator] = []
+        
+    let navigationController: UINavigationController = UINavigationController()
+    
+    func start() {
+        
+    }
+}
