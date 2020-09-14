@@ -9,10 +9,17 @@
 import UIKit
 import Nike_Network
 
+protocol HomeControllerCoordinationDelegate {
+    func homeController(_ controller: HomeController, didSelectViewModel: AlbumInfoViewModel)
+    func homeController(_ controller: HomeController, fetchingDidFailWith error: Error)
+}
+
 final class HomeController: UIViewController {
 
     private let viewModel: HomeViewModel
-    private let coordinator: Coordinator
+
+    // NOTE: - Set via Property injection
+    var coordinatorDelegate: HomeControllerCoordinationDelegate?
     
     private let jamiesPretentiousLabel: UILabel = {
         let label = UILabel()
@@ -50,9 +57,8 @@ final class HomeController: UIViewController {
         viewModel.start()
     }
     
-    init(viewModel: HomeViewModel, coordinator: Coordinator) {
+    init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
-        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -79,13 +85,10 @@ extension HomeController: HomeViewModelDelegate {
     
     func homeViewModel(_ homeModel: HomeViewModel, fetchingDidFailWith error: Error) {
         // TODO: - handle want to do when we try to fetch but fail
+        coordinatorDelegate?.homeController(self, fetchingDidFailWith: error)
     }
     
     func homeViewModel(_ homeModel: HomeViewModel, didSelectRowWith viewModel: AlbumInfoViewModel) {
-        
-        // TODO: - delegate this to coordinator
-
-        let infoController = AlbumInfoViewController(viewModel: viewModel, coordinator: NANCoordinator())
-        navigationController?.pushViewController(infoController, animated: true)
+        coordinatorDelegate?.homeController(self, didSelectViewModel: viewModel)
     }
 }
