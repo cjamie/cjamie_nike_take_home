@@ -11,8 +11,10 @@ import Nike_Network
 
 final class HomeController: UIViewController {
 
-    private let fetcherAPI: ItunesRecordFetcher
-//    let viewModel: HomeViewModel
+//    private let viewModel: HomeViewModel
+    private let coordinator: Coordinator
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,19 +22,15 @@ final class HomeController: UIViewController {
         print("-=- vdl")
         
         view.backgroundColor = .yellow
-        
-//        fetcherAPI.fetchDefaultRaw(router: ITunesRouter.nikeDefault) { raw in
-//            print("-=- hello, we fetched \(raw)")
-//        }
     }
 
     // MARK: - Attribution: - https://stackoverflow.com/questions/56089897/programmatically-initialize-viewcontroller
     
-    init(fetcherAPI: ItunesRecordFetcher) {
-        self.fetcherAPI = fetcherAPI
-
-        super.init(nibName: nil, bundle: nil)
-    }
+//    init(viewModel: HomeController, coordinator: Coordinator) {
+////        self.viewModel = viewModel
+//        self.coordinator = coordinator
+//        super.init(nibName: nil, bundle: nil)
+//    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("Storyboard are a pain")

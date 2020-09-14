@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // TODO: Coordinator, and viewModel
         
-        window?.rootViewController = HomeController(fetcherAPI: RemoteItunesAPI())
+//        window?.rootViewController = HomeController(fetcherAPI: RemoteItunesAPI())
         window?.makeKeyAndVisible()
     }
 
