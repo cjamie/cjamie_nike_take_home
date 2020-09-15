@@ -13,10 +13,3 @@ protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get }
     func start()
 }
-
-extension Coordinator {
-    func appendAndStart(coordinator: Coordinator) {
-        children.append(coordinator)
-        coordinator.start()
-    }
-}

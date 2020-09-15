@@ -46,7 +46,7 @@ class HomeViewModelTests: XCTestCase {
     
     func test_albumInfoViewModelMethod_afterSuccessfulFetch_doesReturnAppropriateViewModel() {
         // GIVEN
-        let (sut, spy) = makeSUT(isSuccessful: true)
+        let (sut, _) = makeSUT(isSuccessful: true)
         
         // WHEN
         sut.start()
