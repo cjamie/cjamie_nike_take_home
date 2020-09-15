@@ -18,12 +18,10 @@ class BoxTests: XCTestCase {
         var capturedArrays: [[Int]] = []
         
         XCTAssertEqual(capturedArrays, [])
-
-        spy.bind { capturedArrays.append($0) }
-        
         
         // WHEN
-        
+        spy.bind { capturedArrays.append($0) }
+
         //THEN
         XCTAssertEqual(capturedArrays, [[]])
     }

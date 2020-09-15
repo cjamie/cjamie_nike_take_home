@@ -14,22 +14,42 @@ import Foundation
 protocol AlbumCellViewModel {
     var nameOfAlbum: Box<String> { get }
     var artist: Box<String> { get }
-    var thumbnailImage: Box<URL> { get }
-    var imageDataCache: NSCache<NSString, NSData> { get }
+    var thumbnailImage: Box<(Data, URL)> { get }
+    var thumbnailImageURL: URL { get }
+
+//    var imageDataCache: NSCache<NSString, NSData> { get }
+//    var dataFetcher: DataFetcher { get }
+    
+    func fetchImage()
 }
 
-struct AlbumCellViewModelImpl: AlbumCellViewModel {
+
+class AlbumCellViewModelImpl: AlbumCellViewModel {
+    
     
     let nameOfAlbum: Box<String>
     let artist: Box<String>
-    let thumbnailImage: Box<URL>
-    let imageDataCache: NSCache<NSString, NSData>
+    let thumbnailImage: Box<(Data, URL)>
+    let thumbnailImageURL: URL
+    private let dataFetcher: DataFetcher
 
-    init(nameOfAlbum: String, artist: String, thumbnailImage: URL, imageDataCache: NSCache<NSString, NSData>) {
+    func fetchImage() {
+        dataFetcher.fetch { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print("-=- handle the error? \(error.localizedDescription)")
+            case let .success(data, url):
+                self?.thumbnailImage.value = (data, url)
+            }
+        }
+    }
+    
+    init(nameOfAlbum: String, artist: String, thumbnailImageURL: URL, dataFetcher: DataFetcher) {
         self.nameOfAlbum = Box(nameOfAlbum)
         self.artist = Box(artist)
-        self.thumbnailImage = Box(thumbnailImage)
-        self.imageDataCache = imageDataCache
+        self.thumbnailImage = Box((Data(), thumbnailImageURL))
+        self.dataFetcher = dataFetcher
+        self.thumbnailImageURL = thumbnailImageURL
     }
 }
 

@@ -46,7 +46,7 @@ class HomeViewModelTests: XCTestCase {
     
     func test_albumInfoViewModelMethod_afterSuccessfulFetch_doesReturnAppropriateViewModel() {
         // GIVEN
-        let (sut, spy) = makeSUT(isSuccessful: false)
+        let (sut, spy) = makeSUT(isSuccessful: true)
         
         // WHEN
         sut.start()
@@ -57,9 +57,8 @@ class HomeViewModelTests: XCTestCase {
         let albumModels: [AlbumInfoViewModel] = (0..<maxCount).compactMap {
             sut.albumInfoViewModel(at: $0)
         }
-        
+        XCTAssertNotEqual(maxCount, 0)
         XCTAssertEqual(maxCount, albumModels.count)
-
         
     }
     

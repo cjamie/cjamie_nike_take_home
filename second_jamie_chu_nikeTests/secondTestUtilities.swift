@@ -16,6 +16,15 @@ func anySwiftError() -> Error {
     return MyError.first
 }
 
-func anyIntArray() -> [Int] {
-    return (0..<5).map { _ in .random(in: 1...20) }
+func anyIntArray(size: Int = 5) -> [Int] {
+    return (0..<size).map { _ in .random(in: 1...20) }
+}
+
+func anyURL() -> URL {
+    return URL(string: "https://google.com/") ?? URL(fileReferenceLiteralResourceName: anyRandomNonEmptyString())
+}
+
+func anyRandomNonEmptyString() -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<10).map{ _ in letters.randomElement()! })
 }

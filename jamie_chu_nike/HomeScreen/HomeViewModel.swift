@@ -44,8 +44,12 @@ final class HomeViewModel: NSObject {
                     AlbumCellViewModelImpl(
                         nameOfAlbum: "Album: \($0.name)",
                         artist: "Artist: \($0.artistName)",
-                        thumbnailImage: $0.artworkUrl100,
-                        imageDataCache: self.imageDataCache
+                        thumbnailImageURL: $0.artworkUrl100,
+                        dataFetcher: RemoteDataFetcherWithCacheFallback(
+                            session: .shared,
+                            url: $0.artworkUrl100,
+                            imageDataCache: self.imageDataCache
+                        )
                     )
                 }
                 
