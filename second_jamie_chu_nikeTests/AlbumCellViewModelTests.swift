@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import jamie_chu_nike
+import Nike_Network
 
 class AlbumCellViewModelTests: XCTestCase {
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias RawResponse = (data: Data?, response: URLResponse?, error: Error?)
+typealias RawResponse = (data: Data?, response: URLResponse?, error: Error?)
 
 struct DecodableResultProcessor<T: Decodable> {
     private let decoder: JSONDecoder

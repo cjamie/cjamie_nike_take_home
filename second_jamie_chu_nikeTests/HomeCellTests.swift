@@ -9,6 +9,7 @@
 
 import XCTest
 @testable import jamie_chu_nike
+import Nike_Network
 import Foundation
 
 class HomeCellTests: XCTestCase {

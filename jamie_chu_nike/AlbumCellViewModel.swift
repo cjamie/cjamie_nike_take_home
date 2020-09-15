@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import Nike_Network
 
 //    Each cell should display the name of the album, the artist, and the album art (thumbnail image).
 protocol AlbumCellViewModel {

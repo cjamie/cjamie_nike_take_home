@@ -8,7 +8,6 @@
 
 import Foundation
 
-// TODO: - make array access safe
 // MARK: - Attribution: - https://www.hackingwithswift.com/example-code/language/how-to-make-array-access-safer-using-a-custom-subscript
 extension Array {
     public subscript(safeIndex index: Int) -> Element? {

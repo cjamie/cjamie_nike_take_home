@@ -8,14 +8,14 @@
 
 import Foundation
 
-public struct DataResultProcessor {
+struct DataResultProcessor {
     private let rawResponse: RawResponse
     
-    public init(rawResponse: RawResponse) {
+    init(rawResponse: RawResponse) {
         self.rawResponse = rawResponse
     }
     
-    public var result: Result <Data, Error> {
+    var result: Result <Data, Error> {
         if let error = rawResponse.error {
             return .failure(NetworkingError.swift(error))
         }
