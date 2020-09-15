@@ -19,35 +19,69 @@ class HomeCellTests: XCTestCase {
     }
     
     func test_homeCell_binding() {
-        let (sut, viewModel) = makeSUT()
+                
+        // TODO: - implement tests
         
-        sut.bind(model: viewModel)
-    
-        
+//        let (sut, viewModel) = makeSUT(
+//            nameOfAlbum: ,
+//            artist: ,
+//            thumbnailImageURL:
+//        )
+//
+//        sut.bind(model: viewModel)
         
     }
     
     // MARK: - Helpers
     
-    private struct AlbumCellViewModelSpy: AlbumCellViewModel {
-//        var thumbnailImage: Box<Data>
-//        
-//        var dataFetcher: DataFetcher
-//        
-//        func invokeFetch() {
-//            <#code#>
+//    private struct AlbumCellViewModelSpy: AlbumCellViewModel {
+//
+//        let nameOfAlbum: Box<String>
+//        let artist: Box<String>
+//        let imageDataCache: NSCache<NSString, NSData>
+//        let thumbnailImage: Box<(Data, URL)>
+//        let thumbnailImageURL: URL
+//
+//        func start() {
+//
 //        }
-        
-        let nameOfAlbum: Box<String> = Box("")
-        let artist: Box<String> = Box("")
-        let thumbnailImage: Box<Data> = Box(anyURL())
-        let imageDataCache: NSCache<NSString, NSData> = NSCache<NSString, NSData>()
-    }
+//
+//        init(nameOfAlbum: Box<String>, artist: Box<String>, imageDataCache: NSCache<NSString, NSData>, thumbnailImageURL: URL = anyURL()) {
+//            self.nameOfAlbum = nameOfAlbum
+//            self.artist = artist
+//            self.imageDataCache = imageDataCache
+//            self.thumbnailImageURL = thumbnailImageURL
+//            self.thumbnailImage = Box((.init(), thumbnailImageURL))
+//        }
+//    }
     
     private func makeSUT() -> (HomeCell, AlbumCellViewModel) {
-        let cellViewModel = AlbumCellViewModelSpy()
+        let cellViewModel = AlbumCellViewModelImpl(
+            nameOfAlbum: anyRandomNonEmptyString(),
+            artist: anyRandomNonEmptyString(),
+            thumbnailImageURL: anyURL(),
+            dataFetcher: MockFetcher()
+        )
+        
         return (HomeCell(style: .default, reuseIdentifier: HomeCell.reuseIdentifier), cellViewModel)
     }
-
     
+    private func makeSUT(nameOfAlbum: String, artist: String, thumbnailImageURL: URL) -> (HomeCell, AlbumCellViewModel) {
+            let cellViewModel = AlbumCellViewModelImpl(
+                nameOfAlbum: nameOfAlbum,
+                artist: artist,
+                thumbnailImageURL: thumbnailImageURL,
+                dataFetcher: MockFetcher()
+            )
+            
+            return (HomeCell(style: .default, reuseIdentifier: HomeCell.reuseIdentifier), cellViewModel)
+        }
+
+    private struct MockFetcher: DataURLFetcher {
+
+        func fetch(completion: @escaping (Result<(Data, URL), Error>) -> Void) {
+            completion(.success((.init(), anyURL())))
+        }
+        
+    }
 }

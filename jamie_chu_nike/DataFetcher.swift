@@ -9,16 +9,17 @@
 import Foundation
 import Nike_Network
 
-protocol DataFetcher {
+protocol DataURLFetcher {
     func fetch(completion: @escaping (Result<(Data, URL), Error>) -> Void)
 }
 
-class RemoteDataFetcherWithCacheFallback: DataFetcher, DataCacheUtilizer {
+// TODO: - move this to the SDK, and re-privatize the data fetcher
+final class RemoteDataFetcherWithCacheFallback: DataURLFetcher, DataCacheUtilizer {
         
     private let session: URLSession
     private let url: URL
 
-    init(session: URLSession, url: URL, imageDataCache: NSCache<NSString, NSData>) {
+    init(session: URLSession = .shared, url: URL, imageDataCache: NSCache<NSString, NSData>) {
         self.session = session
         self.url = url
         self.imageDataCache = imageDataCache
@@ -28,7 +29,7 @@ class RemoteDataFetcherWithCacheFallback: DataFetcher, DataCacheUtilizer {
     
     let imageDataCache: NSCache<NSString, NSData>
     
-    // MARK: - DataFetcher
+    // MARK: - DataURLFetcher
     
     func fetch(completion: @escaping (Result<(Data, URL), Error>) -> Void) {
         if let imageDataFromCache = imageDataCache.object(forKey: NSString(string: url.absoluteString)) as Data?, imageDataFromCache != Data() {
@@ -46,12 +47,11 @@ class RemoteDataFetcherWithCacheFallback: DataFetcher, DataCacheUtilizer {
                         NSData(data: data),
                         forKey: NSString(string: self.url.absoluteString)
                     )
-                    // TODO: - need tests to confirm this goes back to main thread
+                    // TODO: - need tests to capture behavior that this goes back to main thread
                     DispatchQueue.main.async {
                         completion(.success((data, self.url)))
                     }
                 }
-                
             }.resume()
         }
     }

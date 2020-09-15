@@ -26,7 +26,7 @@ final class AlbumCellViewModelImpl: AlbumCellViewModel {
     let thumbnailImage: Box<(Data, URL)>
     let thumbnailImageURL: URL
     
-    private let dataFetcher: DataFetcher
+    private let dataFetcher: DataURLFetcher
 
     func start() {
         dataFetcher.fetch { [weak self] result in
@@ -40,7 +40,7 @@ final class AlbumCellViewModelImpl: AlbumCellViewModel {
         }
     }
     
-    init(nameOfAlbum: String, artist: String, thumbnailImageURL: URL, dataFetcher: DataFetcher) {
+    init(nameOfAlbum: String, artist: String, thumbnailImageURL: URL, dataFetcher: DataURLFetcher) {
         self.nameOfAlbum = Box(nameOfAlbum)
         self.artist = Box(artist)
         self.thumbnailImage = Box((.init(), thumbnailImageURL))

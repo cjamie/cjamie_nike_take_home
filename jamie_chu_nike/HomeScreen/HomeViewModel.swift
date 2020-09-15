@@ -39,8 +39,9 @@ final class HomeViewModel: NSObject {
             case .failure(let error):
                 self.delegate?.homeViewModel(self, fetchingDidFailWith: error)
             case .success(let rawModel):
-                // NOTE: - strings should be localized here
-                let cellModels = rawModel.feed.results.map {
+                self._rawModels.append(rawModel)
+
+                self.albumCellModels.value = rawModel.feed.results.map {
                     AlbumCellViewModelImpl(
                         nameOfAlbum: "Album: \($0.name)",
                         artist: "Artist: \($0.artistName)",
@@ -52,16 +53,13 @@ final class HomeViewModel: NSObject {
                         )
                     )
                 }
-                
-                self.albumCellModels.value = cellModels
-                self._rawModels.append(rawModel)
             }
         }
     }
     
     func albumInfoViewModel(at row: Int) -> AlbumInfoViewModel? {
         guard let rawModels = _rawModels.last else { return nil }
-        
+        // TODO: - test that this will not crash
         guard let album = rawModels.feed.results[safeIndex: row] else { return nil }
         
         let genreNames: String = album.genres.map { $0.name }.joined(separator: ", ")

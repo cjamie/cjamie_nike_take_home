@@ -12,10 +12,8 @@ final class HomeCell: UITableViewCell {
     
     // Consideration: - https://medium.com/bleeding-edge/nicer-reuse-identifiers-with-protocols-in-swift-97d18de1b2df
     static let reuseIdentifier = "HomeCell"
-    
-    // TODO: - also needs a service for fetching UIImager
-    
-    private let albumNameLabel: UILabel = {
+        
+    let albumNameLabel: UILabel = {
         let label = UILabel()
         label.text = "{some placeholder}"
         label.numberOfLines = 0
@@ -24,7 +22,7 @@ final class HomeCell: UITableViewCell {
         return label
     }()
     
-    private let artistNameLabel: UILabel = {
+    let artistNameLabel: UILabel = {
         let label = UILabel()
         label.text = "{some placeholder}"
         label.numberOfLines = 0
@@ -67,19 +65,13 @@ final class HomeCell: UITableViewCell {
         _imageURL = model.thumbnailImageURL
         model.thumbnailImage.bind { [weak self] (data, url) in
             // client side validation so we can be sure the image we fetched is not incorrect
-            print("-=- url \(url == self?._imageURL) \(UIImage(data: data) != nil)")
             guard let self = self, let imageFromData = UIImage(data: data), url == self._imageURL else {
                 return
             }
             self.albumThumbnailImageView.image = imageFromData
         }
     }
-        
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        albumThumbnailImageView.image = nil
-    }
-    
+            
     // MARK: - Init
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,6 +81,13 @@ final class HomeCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+    }
+    
+    // MARK: - Lifecycle
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        albumThumbnailImageView.image = nil
     }
     
     // MARK: - Helpers
