@@ -14,7 +14,6 @@ final class HomeCell: UITableViewCell {
     static let reuseIdentifier = "HomeCell"
     
     // TODO: - also needs a service for fetching UIImager
-    private var viewModel: AlbumCellViewModel?
     
     private let albumNameLabel: UILabel = {
         let label = UILabel()
@@ -50,12 +49,13 @@ final class HomeCell: UITableViewCell {
         return imageView
     }()
     
+    private var _imageURL: URL?
     
     // MARK: - Public API
 
     func bind(model: AlbumCellViewModel) {
-        self.viewModel = model
-        viewModel?.fetchImage()
+        
+        defer { model.start() }
         model.artist.bind { [weak self] artistName in
             self?.artistNameLabel.text = artistName
         }
@@ -66,47 +66,17 @@ final class HomeCell: UITableViewCell {
         
         _imageURL = model.thumbnailImageURL
         model.thumbnailImage.bind { [weak self] (data, url) in
+            // client side validation so we can be sure the image we fetched is not incorrect
+            print("-=- url \(url == self?._imageURL) \(UIImage(data: data) != nil)")
             guard let self = self, let imageFromData = UIImage(data: data), url == self._imageURL else {
                 return
             }
-            
-            print("-=- success ")
             self.albumThumbnailImageView.image = imageFromData
-            
-            // TODO: - fetcher.fetchData(imageURL) or something like there here (also need to resolve tableview issues with images)
-            
-//            if let imageDataFromCache = model.imageDataCache.object(forKey: NSString(string: imageURL.absoluteString)) as Data? {
-//                self.albumThumbnailImageView.image = UIImage(data: imageDataFromCache)
-//            } else {
-//                self._imageURL = imageURL
-//
-//                URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
-//                    guard let self = self else {
-//                        return
-//                    }
-//                    guard let data = data, let image = UIImage(data: data) else {
-//                        return
-//                    }
-//
-//                    guard let cachedURL = self._imageURL, cachedURL == imageURL else {
-//                        return
-//                    }
-//
-//                    model.imageDataCache.setObject(NSData(data: data), forKey: NSString(string: imageURL.absoluteString))
-//
-//                    DispatchQueue.main.async {
-//                        self.albumThumbnailImageView.image = image
-//                    }
-//                }.resume()
-//            }
         }
     }
-    
-    private var _imageURL: URL?
-    
+        
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         albumThumbnailImageView.image = nil
     }
     
