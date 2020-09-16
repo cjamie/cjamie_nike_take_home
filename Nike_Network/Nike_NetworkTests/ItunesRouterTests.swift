@@ -66,7 +66,6 @@ class ItunesRouterTests: XCTestCase {
     }
     
     func test_itunesRouterInstance_isURLRequestConvertible() {
-        // NOTE: - why is this failing for ItunesRouter.self
         XCTAssert(ITunesRouter.nikeDefault is URLRequestConvertible)
     }
         

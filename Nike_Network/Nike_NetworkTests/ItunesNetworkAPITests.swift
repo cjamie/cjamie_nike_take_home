@@ -76,12 +76,17 @@ class ItunesNetworkAPITests: XCTestCase {
         wait(for: [errorExpectation], timeout: 5)
     }
     
+    func test_validTestMock() {
+        XCTAssertNotNil(expectedMonolith)
+    }
+    
         
     // MARK: - Helpers
     
     private func makeSUT(source: Source = .local) -> ItunesRecordFetcher {
         switch source {
         case .local:
+            guard let privateStub = privateStub else { fatalError() }
             return LocallyStubbedItunesAPI(data: privateStub)
         case .remote:
             return RemoteItunesAPI(session: .shared)
@@ -139,15 +144,30 @@ class ItunesNetworkAPITests: XCTestCase {
     }
         
     // TODO: - remove force unwraps on dates
-    private func expectedMonolith() -> ItunesMonolith {
-        let updatedDate = LocallyStubbedItunesAPI.nikeDateFormatter.date(from: "2020-09-12T01:49:37.000-07:00") ?? Date()
+    private func expectedMonolith() -> ItunesMonolith? {
+        guard
+            let updatedDate = LocallyStubbedItunesAPI.nikeDateFormatter.date(from: "2020-09-12T01:49:37.000-07:00"),
+            let itunesURI = URL(string: "http://wwww.apple.com/us/itunes/"),
+            let icon = URL(string: "http://itunes.apple.com/favicon.ico"),
+            let youngBoyArtistURL = URL(string: "https://music.apple.com/us/artist/youngboy-never-broke-again/1168822104?app=music"),
+            let link1 = URL(string: "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/13/d6/e3/13d6e3ac-7a38-c6c3-6566-e027f3735426/075679802378.jpg/200x200bb.png"), let link2 = URL(string: "https://itunes.apple.com/us/genre/id18"),
+            let link3 = URL(string: "https://itunes.apple.com/us/genre/id34"),
+            let link4 = URL(string: "https://music.apple.com/us/album/top/1530122403?app=music"),
+            let link5 = URL(string: "https://music.apple.com/us/artist/big-sean/302533564?app=music"),
+            let link6 = URL(string: "https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/46/b2/f1/46b2f125-58b9-e503-ad81-5174ffd06f3b/20UMGIM72128.rgb.jpg/200x200bb.png"),
+            let link7 = URL(string: "https://music.apple.com/us/album/detroit-2/1530247672?app=music"),
+            let link8 = URL(string: "https://music.apple.com/us/artist/pop-smoke/1450601383?app=music"),
+            let link9 = URL(string: "https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/17/6d/e0/176de0c9-42a6-8741-9d22-6aae00094e1d/20UMGIM55833.rgb.jpg/200x200bb.png"),
+            let link10 = URL(string: "https://music.apple.com/us/album/shoot-for-the-stars-aim-for-the-moon/1521889004?app=music") else { return nil }
+
+        
         return .init(
             feed: .init(
                 title: "Top Albums",
                 id: "https://rss.itunes.apple.com/api/v1/us/apple-music/top-albums/all/3/explicit.json",
                 author: .init(
                     name: "iTunes Store",
-                    uri: URL(string: "http://wwww.apple.com/us/itunes/")!
+                    uri: itunesURI
                 ),
                 links: [
                     .init(
@@ -161,7 +181,7 @@ class ItunesNetworkAPITests: XCTestCase {
                 ],
                 copyright: "Copyright © 2018 Apple Inc. All rights reserved.",
                 country: "us",
-                icon: URL(string: "http://itunes.apple.com/favicon.ico")!,
+                icon: icon,
                 updated: updatedDate,
                 results: [
                     .init(
@@ -173,21 +193,21 @@ class ItunesNetworkAPITests: XCTestCase {
                         copyright: "Never Broke Again, LLC / Atlantic Records, ℗ 2020 Artist Partner Group, Inc.",
                         artistID: "1168822104",
                         contentAdvisoryRating: "Explicit",
-                        artistURL: URL(string: "https://music.apple.com/us/artist/youngboy-never-broke-again/1168822104?app=music")!,
-                        artworkUrl100: URL(string: "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/13/d6/e3/13d6e3ac-7a38-c6c3-6566-e027f3735426/075679802378.jpg/200x200bb.png")!,
+                        artistURL: youngBoyArtistURL,
+                        artworkUrl100: link1,
                         genres: [
                             .init(
                                 genreID: "18",
                                 name: "Hip-Hop/Rap",
-                                url: URL(string: "https://itunes.apple.com/us/genre/id18")!
+                                url: link2
                             ),
                             .init(
                                 genreID: "34",
                                 name: "Music",
-                                url: URL(string: "https://itunes.apple.com/us/genre/id34")!
+                                url: link3
                             )
                         ],
-                        url: URL(string: "https://music.apple.com/us/album/top/1530122403?app=music")!
+                        url: link4
                     ),
                     .init(
                         artistName: "Big Sean",
@@ -198,21 +218,21 @@ class ItunesNetworkAPITests: XCTestCase {
                         copyright: "℗ 2020 Getting Out Our Dreams, Inc./Def Jam Recordings, a division of UMG Recordings, Inc.",
                         artistID: "302533564",
                         contentAdvisoryRating: "Explicit",
-                        artistURL: URL(string: "https://music.apple.com/us/artist/big-sean/302533564?app=music")!,
-                        artworkUrl100: URL(string: "https://is5-ssl.mzstatic.com/image/thumb/Music124/v4/46/b2/f1/46b2f125-58b9-e503-ad81-5174ffd06f3b/20UMGIM72128.rgb.jpg/200x200bb.png")!,
+                        artistURL: link5,
+                        artworkUrl100: link6,
                         genres: [
                             .init(
                                 genreID: "18",
                                 name: "Hip-Hop/Rap",
-                                url: URL(string: "https://itunes.apple.com/us/genre/id18")!
+                                url: link2
                             ),
                             .init(
                                 genreID: "34",
                                 name: "Music",
-                                url: URL(string: "https://itunes.apple.com/us/genre/id34")!
+                                url: link3
                             )
                         ],
-                        url: URL(string: "https://music.apple.com/us/album/detroit-2/1530247672?app=music")!
+                        url: link7
                     ),
                     .init(
                         artistName: "Pop Smoke",
@@ -223,21 +243,21 @@ class ItunesNetworkAPITests: XCTestCase {
                         copyright: "Victor Victor Worldwide; ℗ 2020 Republic Records, a division of UMG Recordings, Inc. & Victor Victor Worldwide",
                         artistID: "1450601383",
                         contentAdvisoryRating: "Explicit",
-                        artistURL: URL(string: "https://music.apple.com/us/artist/pop-smoke/1450601383?app=music")!,
-                        artworkUrl100: URL(string: "https://is3-ssl.mzstatic.com/image/thumb/Music124/v4/17/6d/e0/176de0c9-42a6-8741-9d22-6aae00094e1d/20UMGIM55833.rgb.jpg/200x200bb.png")!,
+                        artistURL: link8,
+                        artworkUrl100: link9,
                         genres: [
                             .init(
                                 genreID: "18",
                                 name: "Hip-Hop/Rap",
-                                url: URL(string: "https://itunes.apple.com/us/genre/id18")!
+                                url: link2
                             ),
                             .init(
                                 genreID: "34",
                                 name: "Music",
-                                url: URL(string: "https://itunes.apple.com/us/genre/id34")!
+                                url: link3
                             ),
                         ],
-                        url: URL(string: "https://music.apple.com/us/album/shoot-for-the-stars-aim-for-the-moon/1521889004?app=music")!
+                        url: link10
                     ),
                 ]
             )
@@ -247,7 +267,7 @@ class ItunesNetworkAPITests: XCTestCase {
 }
 
 
-private let privateStub: Data = """
+private let privateStub: Data? = """
 {
   "feed": {
     "title": "Top Albums",
@@ -347,5 +367,5 @@ private let privateStub: Data = """
     ]
   }
 }
-""".data(using: .utf8)!
+""".data(using: .utf8)
 
