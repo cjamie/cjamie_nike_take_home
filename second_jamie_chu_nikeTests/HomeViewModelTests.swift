@@ -93,17 +93,20 @@ class HomeViewModelTests: XCTestCase {
         
         func fetchDefaultRaw(router: URLRequestableHTTPRouter, completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
 
+            guard let mockSuccess = mockMonolith() else { fatalError() }
+            
             let returnValue: Result<ItunesMonolith, Error> = isSuccessful
-                ? .success(mockMonolith())
+                ? .success(mockSuccess)
                 : .failure(anySwiftError())
 
             completion(returnValue)
         }
         
-        private func mockMonolith() -> ItunesMonolith  {
+        private func mockMonolith() -> ItunesMonolith?  {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .formatted(nikeDateFormatter)
-            let value = try! decoder.decode(ItunesMonolith.self, from: privateStub)
+            guard let privateStub = privateStub else { return nil }
+            let value = try? decoder.decode(ItunesMonolith.self, from: privateStub)
             return value
         }
         
@@ -117,7 +120,7 @@ class HomeViewModelTests: XCTestCase {
 
 }
 
-private let privateStub: Data = """
+private let privateStub: Data? = """
 {
   "feed": {
     "title": "Top Albums",
@@ -217,4 +220,4 @@ private let privateStub: Data = """
     ]
   }
 }
-""".data(using: .utf8)!
+""".data(using: .utf8)
