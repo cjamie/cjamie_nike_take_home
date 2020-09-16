@@ -21,7 +21,7 @@ func anyIntArray(size: Int = 5) -> [Int] {
 }
 
 func anyURL() -> URL {
-    return URL(string: "https://google.com/") ?? URL(fileReferenceLiteralResourceName: anyRandomNonEmptyString())
+    return URL(string: "https://google.com/\(anyRandomNonEmptyString())") ?? URL(fileReferenceLiteralResourceName: anyRandomNonEmptyString())
 }
 
 func anyRandomNonEmptyString() -> String {

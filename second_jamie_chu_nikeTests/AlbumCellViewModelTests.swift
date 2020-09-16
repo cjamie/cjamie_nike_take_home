@@ -86,7 +86,13 @@ class AlbumCellViewModelTests: XCTestCase {
         }
     }
         
-    private func makeSUT(nameOfAlbum: String = anyRandomNonEmptyString(), artist: String = anyRandomNonEmptyString(), thumbnailImageURL: URL = anyURL(), options: SucceedFailure = .succeed, data: Data = Data()) -> AlbumCellViewModel {
+    private func makeSUT(
+        nameOfAlbum: String = anyRandomNonEmptyString(),
+        artist: String = anyRandomNonEmptyString(),
+        thumbnailImageURL: URL = anyURL(),
+        options: SucceedFailure = .succeed,
+        data: Data = Data()
+    ) -> AlbumCellViewModel {
         AlbumCellViewModelImpl(
             nameOfAlbum: nameOfAlbum,
             artist: artist,
