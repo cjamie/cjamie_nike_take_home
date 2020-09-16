@@ -127,11 +127,13 @@ final class AlbumInfoViewController: UIViewController {
         }
         
         viewModel.thumbnailImage.bind { [weak self] imageURL in
-            if let data = self?.viewModel.imageDataCache.object(forKey: NSString(string: imageURL.absoluteString)) as Data? {
-                self?.albumThumbnailImageView.image = UIImage(data: data)
-            } else {
-                // TODO: - fetcher service to be added to viewmodel to retrieve
-            }
+            
+            
+//            if let data = self?.viewModel.imageDataCache.object(forKey: NSString(string: imageURL.absoluteString)) as Data? {
+//                self?.albumThumbnailImageView.image = UIImage(data: data)
+//            } else {
+//                // TODO: - fetcher service to be added to viewmodel to retrieve
+//            }
         }
         
     }

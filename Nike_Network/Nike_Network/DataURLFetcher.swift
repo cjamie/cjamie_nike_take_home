@@ -12,7 +12,6 @@ public protocol DataURLFetcher {
     func fetch(completion: @escaping (Result<(Data, URL), Error>) -> Void)
 }
 
-// TODO: - move this to the SDK, and re-privatize the data fetcher
 public class RemoteDataFetcherWithCacheFallback: DataURLFetcher, DataCacheUtilizer {
         
     private let session: URLSession

@@ -19,7 +19,6 @@ protocol AlbumCellViewModel {
     func start()
 }
 
-
 final class AlbumCellViewModelImpl: AlbumCellViewModel {
     
     let nameOfAlbum: Box<String>

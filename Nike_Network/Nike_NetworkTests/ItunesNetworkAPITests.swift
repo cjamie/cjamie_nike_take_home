@@ -162,7 +162,7 @@ class ItunesNetworkAPITests: XCTestCase {
                 copyright: "Copyright © 2018 Apple Inc. All rights reserved.",
                 country: "us",
                 icon: URL(string: "http://itunes.apple.com/favicon.ico")!,
-                updated: updatedDate, // TODO: -- this needs a special date decoder
+                updated: updatedDate,
                 results: [
                     .init(
                         artistName: "YoungBoy Never Broke Again",

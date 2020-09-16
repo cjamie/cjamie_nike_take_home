@@ -26,7 +26,6 @@
 		7D927A53250F825C00D0CBC0 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A52250F825C00D0CBC0 /* UIView+.swift */; };
 		7D927A55250F881A00D0CBC0 /* HomeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A54250F881900D0CBC0 /* HomeControllerTests.swift */; };
 		7D927A582510F56200D0CBC0 /* HomeCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A572510F56200D0CBC0 /* HomeCellTests.swift */; };
-		7D927A5C2511040000D0CBC0 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A5B2511040000D0CBC0 /* DataFetcher.swift */; };
 		7D927A612511197D00D0CBC0 /* AlbumInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A602511197D00D0CBC0 /* AlbumInfoViewModel.swift */; };
 		7D927A6525111EED00D0CBC0 /* AlbumCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A6425111EED00D0CBC0 /* AlbumCellViewModelTests.swift */; };
 		7D927A67251131D000D0CBC0 /* AppCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A66251131D000D0CBC0 /* AppCoordinatorTests.swift */; };
@@ -96,7 +95,6 @@
 		7D927A52250F825C00D0CBC0 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		7D927A54250F881900D0CBC0 /* HomeControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerTests.swift; sourceTree = "<group>"; };
 		7D927A572510F56200D0CBC0 /* HomeCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellTests.swift; sourceTree = "<group>"; };
-		7D927A5B2511040000D0CBC0 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
 		7D927A602511197D00D0CBC0 /* AlbumInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoViewModel.swift; sourceTree = "<group>"; };
 		7D927A6425111EED00D0CBC0 /* AlbumCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellViewModelTests.swift; sourceTree = "<group>"; };
 		7D927A66251131D000D0CBC0 /* AppCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorTests.swift; sourceTree = "<group>"; };
@@ -160,9 +158,7 @@
 				7D6BF7D9250C765800C824D7 /* Assets.xcassets */,
 				7D6BF7DB250C765800C824D7 /* LaunchScreen.storyboard */,
 				7D6BF7DE250C765800C824D7 /* Info.plist */,
-				7D0E5FD7250F23BC0003A8C2 /* Box.swift */,
 				7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */,
-				7D927A5B2511040000D0CBC0 /* DataFetcher.swift */,
 			);
 			path = jamie_chu_nike;
 			sourceTree = "<group>";
@@ -196,6 +192,7 @@
 		7D927A3E250F2DE900D0CBC0 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7D0E5FD7250F23BC0003A8C2 /* Box.swift */,
 				7D927A41250F4A5500D0CBC0 /* UIStackView+.swift */,
 				7D927A48250F53D200D0CBC0 /* Array+.swift */,
 				7D927A52250F825C00D0CBC0 /* UIView+.swift */,
@@ -384,7 +381,6 @@
 				7D927A3A250F2D4600D0CBC0 /* HomeViewModel+UITableViewDelegate.swift in Sources */,
 				7D927A42250F4A5500D0CBC0 /* UIStackView+.swift in Sources */,
 				7D927A612511197D00D0CBC0 /* AlbumInfoViewModel.swift in Sources */,
-				7D927A5C2511040000D0CBC0 /* DataFetcher.swift in Sources */,
 				7D927A3D250F2DB500D0CBC0 /* HomeCell.swift in Sources */,
 				7D6BF7D3250C765800C824D7 /* SceneDelegate.swift in Sources */,
 			);

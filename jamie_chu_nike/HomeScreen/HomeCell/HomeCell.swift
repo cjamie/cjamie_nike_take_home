@@ -13,7 +13,7 @@ final class HomeCell: UITableViewCell {
     // Consideration: - https://medium.com/bleeding-edge/nicer-reuse-identifiers-with-protocols-in-swift-97d18de1b2df
     static let reuseIdentifier = "HomeCell"
         
-    let albumNameLabel: UILabel = {
+    private let albumNameLabel: UILabel = {
         let label = UILabel()
         label.text = "{some placeholder}"
         label.numberOfLines = 0
@@ -22,7 +22,7 @@ final class HomeCell: UITableViewCell {
         return label
     }()
     
-    let artistNameLabel: UILabel = {
+    private let artistNameLabel: UILabel = {
         let label = UILabel()
         label.text = "{some placeholder}"
         label.numberOfLines = 0
@@ -93,7 +93,7 @@ final class HomeCell: UITableViewCell {
     // MARK: - Helpers
     
     private func setupViews() {
-        labelStack.addArrangedSubviews([self.albumNameLabel, self.artistNameLabel])
+        labelStack.addArrangedSubviews([albumNameLabel, artistNameLabel])
 
         addSubviews([labelStack, albumThumbnailImageView])
         backgroundColor = .gray
