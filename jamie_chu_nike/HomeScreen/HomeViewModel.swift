@@ -67,7 +67,7 @@ final class HomeViewModel: NSObject {
         return AlbumInfoViewModelImpl(
             nameOfAlbum: .init("AameOfAlbum: \(album.name)"),
             artist: .init("Artist: \(album.artistName)"),
-            thumbnailImage: .init((Data(), album.artworkUrl100)),
+            thumbnailImage: album.artworkUrl100,
             genre: .init("Genre: \(genreNames)"),
             releaseDate: .init("ReleaseDate: \(album.releaseDate)"),
             copyrightDescription: .init("CopyrightDescription: \(album.copyright ?? "")"),

@@ -110,32 +110,7 @@ final class AlbumInfoViewController: UIViewController {
         
         setupViews()
         
-        viewModel.artist.bind { [weak self] artistName in
-            self?.artistNameLabel.text = artistName
-        }
-        viewModel.copyrightDescription.bind { [weak self] copyright in
-            self?.copyrightLabel.text = copyright
-        }
-        viewModel.genre.bind { [weak self] genres in
-            self?.genreLabel.text = genres
-        }
-        viewModel.nameOfAlbum.bind { [weak self] albumName in
-            self?.albumNameLabel.text = albumName
-        }
-        viewModel.releaseDate.bind { [weak self] releaseDate in
-            self?.releaseDateLabel.text = releaseDate
-        }
-        
-        viewModel.thumbnailImage.bind { [weak self] imageURL in
-            
-            
-//            if let data = self?.viewModel.imageDataCache.object(forKey: NSString(string: imageURL.absoluteString)) as Data? {
-//                self?.albumThumbnailImageView.image = UIImage(data: data)
-//            } else {
-//                // TODO: - fetcher service to be added to viewmodel to retrieve
-//            }
-        }
-        
+        setupBindings()
     }
     
     @objc private func didTapAlbumButton(_ sender: UIButton) {
@@ -179,5 +154,29 @@ final class AlbumInfoViewController: UIViewController {
             albumPageOnItunesStoreButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             albumPageOnItunesStoreButton.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor, constant: -20),
         ])
+    }
+    
+    private func setupBindings() {
+        defer { viewModel.start() }
+        viewModel.artist.bind { [weak self] artistName in
+            self?.artistNameLabel.text = artistName
+        }
+        viewModel.copyrightDescription.bind { [weak self] copyright in
+            self?.copyrightLabel.text = copyright
+        }
+        viewModel.genre.bind { [weak self] genres in
+            self?.genreLabel.text = genres
+        }
+        viewModel.nameOfAlbum.bind { [weak self] albumName in
+            self?.albumNameLabel.text = albumName
+        }
+        viewModel.releaseDate.bind { [weak self] releaseDate in
+            self?.releaseDateLabel.text = releaseDate
+        }
+        
+        viewModel.thumbnailImage.bind { [weak self] (data, thumbnailImageURL) in
+            guard let imageFromData = UIImage(data: data) else { return }
+            self?.albumThumbnailImageView.image = imageFromData
+        }
     }
 }

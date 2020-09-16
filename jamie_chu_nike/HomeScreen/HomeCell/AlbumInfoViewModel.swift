@@ -12,29 +12,45 @@ import Nike_Network
 protocol AlbumInfoViewModel {
     var nameOfAlbum: Box<String> { get }
     var artist: Box<String> { get }
-//    var thumbnailImage: Box<URL> { get }
     var thumbnailImage: Box<(Data, URL)> { get }
     var genre: Box<String> { get }
     var releaseDate: Box<String> { get }
     var copyrightDescription: Box<String> { get }
-//    var imageDataCache: NSCache<NSString, NSData> { get }
     var albumURL: URL { get }
     
     func start()
 }
 
-struct AlbumInfoViewModelImpl: AlbumInfoViewModel {
+final class AlbumInfoViewModelImpl: AlbumInfoViewModel {
     let nameOfAlbum: Box<String>
     let artist: Box<String>
     let thumbnailImage: Box<(Data, URL)>
     let genre: Box<String>
     let releaseDate: Box<String>
     let copyrightDescription: Box<String>
-//    let imageDataCache: NSCache<NSString, NSData>
     let albumURL: URL
-    let dataFetcher: DataURLFetcher
+    private let dataFetcher: DataURLFetcher
+    
+    init(nameOfAlbum: String, artist: String, thumbnailImage: URL, genre: String, releaseDate: String, copyrightDescription: String, albumURL: URL, dataFetcher: DataURLFetcher) {
+        self.nameOfAlbum = Box(nameOfAlbum)
+        self.artist = Box(artist)
+        self.thumbnailImage = Box((Data(), thumbnailImage))
+        self.genre = Box(genre)
+        self.releaseDate = Box(releaseDate)
+        self.copyrightDescription = Box(copyrightDescription)
+        self.albumURL = albumURL
+        self.dataFetcher = dataFetcher
+    }
     
     func start() {
-        
+        dataFetcher.fetch { [weak self] result in
+            switch result {
+            case .failure:
+                // we will do nothing with an error
+                break
+            case .success(let (data, url)):
+                self?.thumbnailImage.value = (data, url)
+            }
+        }
     }
 }
