@@ -64,11 +64,7 @@ class ItunesRouterTests: XCTestCase {
         XCTAssert(sut.parameters.isEmpty)
         XCTAssert(sut.additionalHttpHeaders.isEmpty)
     }
-    
-    func test_itunesRouterInstance_isURLRequestConvertible() {
-        XCTAssert(ITunesRouter.nikeDefault is URLRequestConvertible)
-    }
-        
+            
     // MARK: - Helpers
     
     private func makeSUT(
