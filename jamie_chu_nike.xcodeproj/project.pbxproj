@@ -158,7 +158,6 @@
 				7D6BF7D9250C765800C824D7 /* Assets.xcassets */,
 				7D6BF7DB250C765800C824D7 /* LaunchScreen.storyboard */,
 				7D6BF7DE250C765800C824D7 /* Info.plist */,
-				7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */,
 			);
 			path = jamie_chu_nike;
 			sourceTree = "<group>";
@@ -183,8 +182,8 @@
 		7D927A3B250F2DAD00D0CBC0 /* HomeCell */ = {
 			isa = PBXGroup;
 			children = (
+				7D927A35250F2D0400D0CBC0 /* AlbumCellViewModel.swift */,
 				7D927A3C250F2DB500D0CBC0 /* HomeCell.swift */,
-				7D927A602511197D00D0CBC0 /* AlbumInfoViewModel.swift */,
 			);
 			path = HomeCell;
 			sourceTree = "<group>";
@@ -203,6 +202,7 @@
 		7D927A45250F4FA200D0CBC0 /* AlbumInfo */ = {
 			isa = PBXGroup;
 			children = (
+				7D927A602511197D00D0CBC0 /* AlbumInfoViewModel.swift */,
 				7D927A43250F4F6A00D0CBC0 /* AlbumInfoViewController.swift */,
 			);
 			path = AlbumInfo;
