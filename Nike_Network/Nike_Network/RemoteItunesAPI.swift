@@ -41,6 +41,7 @@ public class RemoteItunesAPI: ItunesRecordFetcher {
         } catch {
             completion(.failure(error))
         }
+        
     }
     
     // MARK: - Helpers
