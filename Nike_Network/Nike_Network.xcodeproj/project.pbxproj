@@ -20,7 +20,7 @@
 		7D6BF998250DD44A00C824D7 /* DecodableResultProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF997250DD44A00C824D7 /* DecodableResultProcessorTests.swift */; };
 		7D6BF9A0250DE09400C824D7 /* DecodableResultProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */; };
 		7D6BF9A4250DE21900C824D7 /* DataResultProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */; };
-		7D6BF9AA250DF23000C824D7 /* DataResultProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */; };
+		7D6BF9AA250DF23000C824D7 /* ResponseToDataReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9A9250DF23000C824D7 /* ResponseToDataReducer.swift */; };
 		7D6BF9AC250E79FC00C824D7 /* NetworkingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9AB250E79FC00C824D7 /* NetworkingErrorTests.swift */; };
 		7D6BF9AF250E810300C824D7 /* ItunesMonolith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */; };
 		7D927A6925113F0500D0CBC0 /* DataURLFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A6825113F0400D0CBC0 /* DataURLFetcher.swift */; };
@@ -54,7 +54,7 @@
 		7D6BF997250DD44A00C824D7 /* DecodableResultProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResultProcessorTests.swift; sourceTree = "<group>"; };
 		7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodableResultProcessor.swift; sourceTree = "<group>"; };
 		7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResultProcessorTests.swift; sourceTree = "<group>"; };
-		7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResultProcessor.swift; sourceTree = "<group>"; };
+		7D6BF9A9250DF23000C824D7 /* ResponseToDataReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseToDataReducer.swift; sourceTree = "<group>"; };
 		7D6BF9AB250E79FC00C824D7 /* NetworkingErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingErrorTests.swift; sourceTree = "<group>"; };
 		7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesMonolith.swift; sourceTree = "<group>"; };
 		7D927A6825113F0400D0CBC0 /* DataURLFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataURLFetcher.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 				7D6BF986250DA4EF00C824D7 /* NetworkingError.swift */,
 				7D6BF991250DCF3500C824D7 /* RemoteItunesAPI.swift */,
 				7D6BF99F250DE09400C824D7 /* DecodableResultProcessor.swift */,
-				7D6BF9A9250DF23000C824D7 /* DataResultProcessor.swift */,
+				7D6BF9A9250DF23000C824D7 /* ResponseToDataReducer.swift */,
 				7D927A6825113F0400D0CBC0 /* DataURLFetcher.swift */,
 			);
 			path = Nike_Network;
@@ -196,7 +196,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Jamie Chu";
 				TargetAttributes = {
 					7D6BF950250C822300C824D7 = {
@@ -252,7 +252,7 @@
 				7D6BF981250C842A00C824D7 /* HTTPRouter.swift in Sources */,
 				7D6BF9A0250DE09400C824D7 /* DecodableResultProcessor.swift in Sources */,
 				7D6BF992250DCF3500C824D7 /* RemoteItunesAPI.swift in Sources */,
-				7D6BF9AA250DF23000C824D7 /* DataResultProcessor.swift in Sources */,
+				7D6BF9AA250DF23000C824D7 /* ResponseToDataReducer.swift in Sources */,
 				7D6BF987250DA4EF00C824D7 /* NetworkingError.swift in Sources */,
 				7D927A6925113F0500D0CBC0 /* DataURLFetcher.swift in Sources */,
 				7D6BF9AF250E810300C824D7 /* ItunesMonolith.swift in Sources */,
@@ -312,6 +312,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -375,6 +376,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

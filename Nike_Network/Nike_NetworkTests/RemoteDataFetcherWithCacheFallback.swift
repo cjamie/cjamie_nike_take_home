@@ -9,7 +9,7 @@
 import XCTest
 @testable import Nike_Network
 
-class RemoteDataFetcherWithCacheFallbackTests: XCTestCase {
+class RemoteDataFetcherWithCacheFallbackTestCase: XCTestCase {
     
     func test_successfulFetch() {
         let expectedURL = urlThatWillBeSuccessful()

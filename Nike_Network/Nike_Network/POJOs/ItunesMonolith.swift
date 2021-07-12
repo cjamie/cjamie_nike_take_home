@@ -50,7 +50,7 @@ public struct AlbumResult: Codable, Equatable {
     public let copyright: String?
     public let artistID: String
     public let contentAdvisoryRating: String? // TODO: - this should be an enum?
-    public let artistURL: URL
+    public let artistURL: URL?
     public let artworkUrl100: URL
     public let genres: [Genre]
     public let url: URL

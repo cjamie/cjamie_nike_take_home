@@ -10,23 +10,23 @@ import Foundation
 
 typealias RawResponse = (data: Data?, response: URLResponse?, error: Error?)
 
-struct DecodableResultProcessor<T: Decodable> {
+public struct DecodableResultProcessor<T: Decodable> {
+
     private let decoder: JSONDecoder
-    private let dataResult: Result<Data, Error>
-    
+
     // MARK: - Init
     
-    init(rawResponse: RawResponse, decoder: JSONDecoder) {
-        self.dataResult = DataResultProcessor(rawResponse: rawResponse).result
+    public init(decoder: JSONDecoder) {
         self.decoder = decoder
     }
     
     // MARK: - Public API
     
-    func process() -> Result<T, Error> {
-        switch dataResult {
+    func process(rawResponse: RawResponse) -> Result<T, Error> {
+        switch ResponseToDataReducer(rawResponse: rawResponse).result {
         case .failure(let processedError):
             return .failure(processedError)
+
         case .success(let data):
             
             do {

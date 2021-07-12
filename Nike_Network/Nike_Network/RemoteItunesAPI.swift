@@ -15,49 +15,36 @@ public protocol ItunesRecordFetcher {
 public typealias URLRequestableHTTPRouter = URLRequestConvertible & HTTPRouter
 
 public class RemoteItunesAPI: ItunesRecordFetcher {
-    
     private let session: URLSession
-    
+    private let processor: DecodableResultProcessor<ItunesMonolith>
+
     // MARK: - Init
     
-    public init(session: URLSession = .shared) {
+    public init(session: URLSession, processor: DecodableResultProcessor<ItunesMonolith>) {
         self.session = session
+        self.processor = processor
     }
     
     // MARK: - ItunesRecordFetcher
     
-    public func fetchDefaultRaw(router: URLRequestableHTTPRouter, completion: @escaping (Result<ItunesMonolith, Error>) -> Void) {
+    public func fetchDefaultRaw(
+        router: URLRequestableHTTPRouter,
+        completion: @escaping (Result<ItunesMonolith, Error>) -> Void
+    ) {
         do {
-            let request = try router.asURLRequest()
-            session.dataTask(with: request) {
-                
-                let processor: DecodableResultProcessor<ItunesMonolith> = DecodableResultProcessor(
-                    rawResponse: ($0, $1, $2),
-                    decoder: Self.nikeItunesJsonDecoder
-                )
-                
-                Self.dispatch { completion(processor.process()) }
+            session.dataTask(with: try router.asURLRequest()) { [weak self] data, response, error in
+                guard let self = self else { return }
+
+                Self.dispatch {
+                    completion(self.processor.process(rawResponse: (data, response, error)))
+                }
             }.resume()
-        } catch {cklsmcklsemklcmeskl
+        } catch {
             completion(.failure(error))
         }
-        
     }
     
     // MARK: - Helpers
-    
-    private static let nikeDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return formatter
-    }()
-    
-    private static let nikeItunesJsonDecoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(nikeDateFormatter)
-        return decoder
-    }()
     
     private static func dispatch(block: @escaping ()-> Void) {
         DispatchQueue.main.async(execute: block)

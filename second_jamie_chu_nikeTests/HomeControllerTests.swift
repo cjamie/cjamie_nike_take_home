@@ -15,7 +15,7 @@ class HomeControllerTests: XCTestCase {
     func makeSUT() -> (HomeController, HomeControllerCoordinationDelegate) {
         let controller = HomeController(
             viewModel: .init(
-                recordsfetcher: RemoteItunesAPI()
+                recordsfetcher: RemoteItunesAPI(session: .shared, processor: .init(decoder: .init()))
             )
         )
         _ = controller.view

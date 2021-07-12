@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DataResultProcessor {
+struct ResponseToDataReducer {
     private let rawResponse: RawResponse
     
     init(rawResponse: RawResponse) {

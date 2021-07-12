@@ -115,7 +115,7 @@ final class AlbumInfoViewController: UIViewController {
     
     @objc private func didTapAlbumButton(_ sender: UIButton) {
         coordinationDelegate?.albumInfoViewController(self, didTapAlbumButtonWith: viewModel.albumURL)
-        
+//        coordinationDelegate?.albumInfoViewController(self, didTapDismiss: someInformation)
     }
     
     

@@ -12,7 +12,7 @@ public protocol DataURLFetcher {
     func fetch(completion: @escaping (Result<(Data, URL), Error>) -> Void)
 }
 
-public class RemoteDataFetcherWithCacheFallback: DataURLFetcher, DataCacheUtilizer {
+public class RemoteDataFetcherWithCacheFallback: DataURLFetcher {
         
     private let session: URLSession
     let url: URL
@@ -23,8 +23,6 @@ public class RemoteDataFetcherWithCacheFallback: DataURLFetcher, DataCacheUtiliz
         self.imageDataCache = imageDataCache
     }
 
-    // MARK: - DataCacheUtilizer
-    
     let imageDataCache: NSCache<NSString, NSData>
     
     // MARK: - DataURLFetcher
@@ -36,10 +34,11 @@ public class RemoteDataFetcherWithCacheFallback: DataURLFetcher, DataCacheUtiliz
             session.invalidateAndCancel()
             session.dataTask(with: url) { [weak self] in
                 guard let self = self else { return }
-                let result = DataResultProcessor(rawResponse: ($0, $1, $2)).result
+                let result = ResponseToDataReducer(rawResponse: ($0, $1, $2)).result
                 switch result {
                 case .failure(let error):
                     completion(.failure(error))
+
                 case .success(let data):
                     self.imageDataCache.setObject(
                         NSData(data: data),
@@ -55,7 +54,7 @@ public class RemoteDataFetcherWithCacheFallback: DataURLFetcher, DataCacheUtiliz
     }
     
 }
-
-protocol DataCacheUtilizer {
-    var imageDataCache: NSCache<NSString, NSData> { get }
-}
+//
+//protocol DataCacheUtilizer {
+//    var imageDataCache: NSCache<NSString, NSData> { get }
+//}

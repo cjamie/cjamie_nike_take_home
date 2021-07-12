@@ -47,6 +47,7 @@ extension AppCoordinator: HomeControllerCoordinationDelegate {
         let infoController = AlbumInfoViewController(viewModel: viewModel, coordinationDelegate: self)
         navigationController.pushViewController(infoController, animated: true)
     }
+
     
 }
 
@@ -68,4 +69,10 @@ extension AppCoordinator: AlbumInfoCoordinationDelegate {
 
         }
     }
+
+//    func albumInfoViewController(_ controller: AlbumInfoViewController, didTapDismiss informaiton: Information)
+//    userDfaults.set(infromation: )
+//
+//    controller.dismiss(animated: true)
+//    }
 }
