@@ -112,22 +112,21 @@ class HttpRouterTests: XCTestCase {
         XCTAssertEqual(expectedError, actualError as? NetworkingError)
     }
     
-    func test_baseURL_withEmptyStringPath_doesThrowMalformedURLError_whenCreatingBaseURL() {
+    func test_baseURL_withEmptyStringPath_doesNotThrowMalformedURLError_whenCreatingBaseURL() throws {
         // GIVEN
         let sut = makeSUT(path: emptyString())
-        let expectedError: NetworkingError = .malformedURL
-        
+
         // WHEN
-        let actualError: Error?
+        let actual: NetworkingError?
         do {
             _ = try sut.baseURL()
-            actualError = nil
+            actual = nil
         } catch {
-            actualError = error
+            actual = try XCTUnwrap(error as? NetworkingError)
         }
 
         // THEN
-        XCTAssertEqual(expectedError, actualError as? NetworkingError)
+        XCTAssertEqual(actual, nil)
     }
     
     func test_urlRequest_withEmptyHTTPMethod_throwMalformedRequestError() {

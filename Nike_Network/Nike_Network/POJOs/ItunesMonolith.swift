@@ -12,6 +12,10 @@ import Foundation
 
 public struct ItunesMonolith: Codable, Equatable {
     public let feed: Feed
+
+    init(feed: Feed) {
+        self.feed = feed
+    }
 }
 
 // MARK: - Feed

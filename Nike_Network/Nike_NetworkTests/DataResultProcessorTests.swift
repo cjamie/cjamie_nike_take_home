@@ -114,8 +114,12 @@ class DataResultProcessorTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(data: Data? = nil, response: URLResponse? = nil, error: Error? = nil) -> (sut: DataResultProcessor, result: Result<Data, Error>) {
-        let processor = DataResultProcessor(rawResponse: (data, response, error))
+    private func makeSUT(
+        data: Data? = nil,
+        response: URLResponse? = nil,
+        error: Error? = nil
+    ) -> (sut: ResponseToDataReducer, result: Result<Data, Error>) {
+        let processor = ResponseToDataReducer(rawResponse: (data, response, error))
         return (processor, processor.result)
     }
 }

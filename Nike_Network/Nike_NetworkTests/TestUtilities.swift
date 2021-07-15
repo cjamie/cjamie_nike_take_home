@@ -68,6 +68,15 @@ func anyURLResponse() -> URLResponse {
     return URLResponse(url: anyURL(), mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
 }
 
+func anySuccessfulHTTPURLResponse() -> HTTPURLResponse {
+    HTTPURLResponse(
+        url: anyURL(),
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+    )!
+}
+
 func validHTTPURLResponse(code: Int = 200) -> HTTPURLResponse? {
     return HTTPURLResponse(
         url: anyURL(),

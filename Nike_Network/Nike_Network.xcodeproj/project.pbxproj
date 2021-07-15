@@ -25,6 +25,8 @@
 		7D6BF9AF250E810300C824D7 /* ItunesMonolith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */; };
 		7D927A6925113F0500D0CBC0 /* DataURLFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A6825113F0400D0CBC0 /* DataURLFetcher.swift */; };
 		7D927A6B2511403900D0CBC0 /* RemoteDataFetcherWithCacheFallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D927A6A2511403900D0CBC0 /* RemoteDataFetcherWithCacheFallback.swift */; };
+		B2D33D7E269C404A00BF2869 /* RemoteItunesAPITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D33D7D269C404A00BF2869 /* RemoteItunesAPITestCase.swift */; };
+		B2D33D82269C40AA00BF2869 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D33D81269C40AA00BF2869 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesMonolith.swift; sourceTree = "<group>"; };
 		7D927A6825113F0400D0CBC0 /* DataURLFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataURLFetcher.swift; sourceTree = "<group>"; };
 		7D927A6A2511403900D0CBC0 /* RemoteDataFetcherWithCacheFallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataFetcherWithCacheFallback.swift; sourceTree = "<group>"; };
+		B2D33D7D269C404A00BF2869 /* RemoteItunesAPITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteItunesAPITestCase.swift; sourceTree = "<group>"; };
+		B2D33D81269C40AA00BF2869 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,7 @@
 		7D6BF95E250C822300C824D7 /* Nike_NetworkTests */ = {
 			isa = PBXGroup;
 			children = (
+				B2D33D85269C40AE00BF2869 /* Utilities */,
 				7D6BF961250C822300C824D7 /* Info.plist */,
 				7D6BF982250D390F00C824D7 /* HttpRouterTests.swift */,
 				7D6BF98B250DB5EB00C824D7 /* ItunesRouterTests.swift */,
@@ -127,6 +132,7 @@
 				7D6BF9A3250DE21900C824D7 /* DataResultProcessorTests.swift */,
 				7D6BF9AB250E79FC00C824D7 /* NetworkingErrorTests.swift */,
 				7D927A6A2511403900D0CBC0 /* RemoteDataFetcherWithCacheFallback.swift */,
+				B2D33D7D269C404A00BF2869 /* RemoteItunesAPITestCase.swift */,
 			);
 			path = Nike_NetworkTests;
 			sourceTree = "<group>";
@@ -137,6 +143,14 @@
 				7D6BF9AE250E810300C824D7 /* ItunesMonolith.swift */,
 			);
 			path = POJOs;
+			sourceTree = "<group>";
+		};
+		B2D33D85269C40AE00BF2869 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B2D33D81269C40AA00BF2869 /* Utilities.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,8 +283,10 @@
 				7D6BF994250DCF9300C824D7 /* ItunesNetworkAPITests.swift in Sources */,
 				7D6BF9A4250DE21900C824D7 /* DataResultProcessorTests.swift in Sources */,
 				7D6BF9AC250E79FC00C824D7 /* NetworkingErrorTests.swift in Sources */,
+				B2D33D7E269C404A00BF2869 /* RemoteItunesAPITestCase.swift in Sources */,
 				7D927A6B2511403900D0CBC0 /* RemoteDataFetcherWithCacheFallback.swift in Sources */,
 				7D6BF98C250DB5EB00C824D7 /* ItunesRouterTests.swift in Sources */,
+				B2D33D82269C40AA00BF2869 /* Utilities.swift in Sources */,
 				7D6BF983250D390F00C824D7 /* HttpRouterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

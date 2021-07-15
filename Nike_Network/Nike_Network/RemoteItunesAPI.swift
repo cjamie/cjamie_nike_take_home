@@ -15,14 +15,30 @@ public protocol ItunesRecordFetcher {
 public typealias URLRequestableHTTPRouter = URLRequestConvertible & HTTPRouter
 
 public class RemoteItunesAPI: ItunesRecordFetcher {
-    private let session: URLSession
-    private let processor: DecodableResultProcessor<ItunesMonolith>
+    private let session: Session
+    private let processor: DecodableResultProcessor<ItunesMonolith> = {
+        let nikeDateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            return formatter
+        }()
+
+        let decoder = JSONDecoder()
+
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+        decoder.dateDecodingStrategy = .formatted(formatter)
+
+        return DecodableResultProcessor<ItunesMonolith>(decoder: decoder)
+    }()
 
     // MARK: - Init
     
-    public init(session: URLSession, processor: DecodableResultProcessor<ItunesMonolith>) {
+    public init(session: Session) {
         self.session = session
-        self.processor = processor
     }
     
     // MARK: - ItunesRecordFetcher
@@ -34,19 +50,33 @@ public class RemoteItunesAPI: ItunesRecordFetcher {
         do {
             session.dataTask(with: try router.asURLRequest()) { [weak self] data, response, error in
                 guard let self = self else { return }
-
-                Self.dispatch {
-                    completion(self.processor.process(rawResponse: (data, response, error)))
-                }
+                completion(self.processor.process(rawResponse: (data, response, error)))
             }.resume()
         } catch {
             completion(.failure(error))
         }
     }
-    
-    // MARK: - Helpers
-    
-    private static func dispatch(block: @escaping ()-> Void) {
-        DispatchQueue.main.async(execute: block)
+}
+
+public protocol Task {
+    func resume()
+}
+
+extension URLSessionDataTask: Task {}
+
+public protocol Session {
+    func dataTask(
+        with request: URLRequest,
+        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> Task
+}
+
+
+extension URLSession: Session {
+    public func dataTask(
+        with request: URLRequest,
+        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> Task {
+        dataTask(with: request, completionHandler: completionHandler) as URLSessionDataTask
     }
 }

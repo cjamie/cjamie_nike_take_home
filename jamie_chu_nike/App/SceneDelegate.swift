@@ -20,25 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func startAppFlow(withWindowScene windowScene: UIWindowScene) {
         let myWindow = UIWindow(windowScene: windowScene)
-
-
-        let decoder: JSONDecoder = {
-            let nikeDateFormatter: DateFormatter = {
-                let formatter = DateFormatter()
-                formatter.locale = Locale(identifier: "en_US_POSIX")
-                formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                return formatter
-            }()
-
-            let decoder = JSONDecoder()
-
-            decoder.dateDecodingStrategy = .formatted(nikeDateFormatter)
-            return decoder
-        }()
-
-        let processor = DecodableResultProcessor<ItunesMonolith>(decoder: decoder)
-
-        let fetcher = RemoteItunesAPI(session: .shared, processor: processor)
+        let fetcher = MainThreadDecorator(RemoteItunesAPI(session: URLSession.shared))
         let viewModel = HomeViewModel(recordsfetcher: fetcher)
         let controller = HomeController(viewModel: viewModel)
         let root = UINavigationController(rootViewController: controller)
@@ -53,4 +35,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private var appCoordinator: AppCoordinator?
     
+}
+
+final class MainThreadDecorator: ItunesRecordFetcher {
+    private let decoratee: ItunesRecordFetcher
+
+    init(_ decoratee: ItunesRecordFetcher) {
+        self.decoratee = decoratee
+    }
+
+    func fetchDefaultRaw(
+        router: URLRequestableHTTPRouter,
+        completion: @escaping (Result<ItunesMonolith, Error>) -> Void
+    ) {
+        decoratee.fetchDefaultRaw(router: router) { result in
+            DispatchQueue.main.async { completion(result) }
+        }
+    }
 }

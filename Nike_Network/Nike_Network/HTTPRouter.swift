@@ -38,7 +38,7 @@ extension HTTPRouter {
     // MARK: Helpers
     
     private var stringComponents: [String] {
-        [host, scheme, path]
+        [host, scheme]
     }
 }
 
