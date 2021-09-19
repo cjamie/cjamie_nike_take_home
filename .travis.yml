@@ -1,5 +1,4 @@
 os: osx
 osx_image: xcode12.5	
-language: swift 
 script: xcodebuild clean test -project "jamie_chu_nike.xcodeproj" -scheme "CI" -destination "platform=iOS Simulator,name=iPhone 12 Pro,OS=latest" -configuration Debug CODE_SIGNING_ALLOWED=NO
 
