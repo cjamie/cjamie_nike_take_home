@@ -10,33 +10,33 @@ import XCTest
 @testable import Nike_Network
 
 class RemoteDataFetcherWithCacheFallbackTests: XCTestCase {
-    
-    func test_successfulFetch() {
-        let expectedURL = urlThatWillBeSuccessful()
-        let (sut, _) = makeSUT(inputURL: expectedURL)
-        let myExpect = expectation(description: #function)
-        
-        var result: Result<(Data, URL), Error>?
-        
-        sut.fetch {
-            result = $0
-            myExpect.fulfill()
-        }
-        
-        wait(for: [myExpect], timeout: 4)
-        
-        guard let unwrappedResult = result else {
-            XCTFail()
-            return
-        }
-        
-        switch unwrappedResult {
-        case  .success(let value):
-            XCTAssertEqual(expectedURL, value.1)
-        case .failure:
-            XCTFail("expected success")
-        }
-    }
+//    
+//    func test_successfulFetch() {
+//        let expectedURL = urlThatWillBeSuccessful()
+//        let (sut, _) = makeSUT(inputURL: expectedURL)
+//        let myExpect = expectation(description: #function)
+//        
+//        var result: Result<(Data, URL), Error>?
+//        
+//        sut.fetch {
+//            result = $0
+//            myExpect.fulfill()
+//        }
+//        
+//        wait(for: [myExpect], timeout: 4)
+//        
+//        guard let unwrappedResult = result else {
+//            XCTFail()
+//            return
+//        }
+//        
+//        switch unwrappedResult {
+//        case  .success(let value):
+//            XCTAssertEqual(expectedURL, value.1)
+//        case .failure:
+//            XCTFail("expected success")
+//        }
+//    }
     
     // TODO: -
 //    func test_useCacheOnFetch_ifThereIsKeyMatchingEntry_inCache() {
